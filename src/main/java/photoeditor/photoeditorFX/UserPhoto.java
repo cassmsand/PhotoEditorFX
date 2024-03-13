@@ -1,8 +1,5 @@
-package photoeditor.cassiephotoeditorFX;
+package photoeditor.photoeditorFX;
 
-import photoeditor.cassiephotoeditorFX.Filter;
-
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

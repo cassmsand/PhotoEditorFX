@@ -4,7 +4,8 @@ module photoeditor.cassiefxtest {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
+    requires java.desktop;
 
-    opens photoeditor.cassiefxtest to javafx.fxml;
-    exports photoeditor.cassiefxtest;
+    opens photoeditor.photoeditorFX to javafx.fxml;
+    exports photoeditor.photoeditorFX;
 }

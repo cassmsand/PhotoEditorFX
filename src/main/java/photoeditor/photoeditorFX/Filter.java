@@ -1,4 +1,4 @@
-package photoeditor.cassiephotoeditorFX;
+package photoeditor.photoeditorFX;
 
 public abstract class Filter  {
     private String filterName;

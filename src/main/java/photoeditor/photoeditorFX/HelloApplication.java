@@ -1,4 +1,4 @@
-package photoeditor.cassiephotoeditorFX;
+package photoeditor.photoeditorFX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,14 +11,18 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CassiePhotoFX.fxml"));
-        Parent root = fxmlLoader.load();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CassiePhotoFX.fxml"));
+            Parent root = fxmlLoader.load();
 
-        Scene scene = new Scene(root, 800, 600);
-        stage.setTitle("Photo Editor");
-        stage.setScene(scene);
+            Scene scene = new Scene(root, 800, 600);
+            stage.setTitle("Photo Editor");
+            stage.setScene(scene);
 
-        stage.show();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

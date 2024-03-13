@@ -1,4 +1,4 @@
-package photoeditor.cassiephotoeditorFX;
+package photoeditor.photoeditorFX;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

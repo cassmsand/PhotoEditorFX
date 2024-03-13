@@ -1,4 +1,4 @@
-package photoeditor.cassiephotoeditorFX;
+package photoeditor.photoeditorFX;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

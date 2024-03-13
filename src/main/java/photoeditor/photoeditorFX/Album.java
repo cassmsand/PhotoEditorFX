@@ -1,4 +1,4 @@
-package photoeditor.cassiephotoeditorFX;
+package photoeditor.photoeditorFX;
 
 public class Album {
 
