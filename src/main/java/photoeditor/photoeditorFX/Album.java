@@ -5,6 +5,7 @@ public class Album {
     private String albumName;
     private final UserPhoto[] photoAlbum;
     private int photoCount;
+    private int count = 0;
 
     public Album(String albumName) {
         this.albumName = albumName;
@@ -15,7 +16,8 @@ public class Album {
     public Album(String albumName, UserPhoto photo) {
         this.albumName = albumName;
         this.photoAlbum = new UserPhoto[100];
-        this.photoCount = 1;
+        count++;
+        this.photoCount = count;
         this.photoAlbum[0] = photo;
     }
 
