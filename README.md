@@ -8,7 +8,7 @@ the pane on the right near the bottom there is a dropdown menu labeled "Gradle J
 "Eclipse Temurin (AdoptOpenJDK HotSpot) 20.0.2". If you have a Mac with Apple Silicon select
 "Eclipse Temurin (AdoptOpenJDK HotSpot) 20.0.2 aarch64".
 
-The classes that satisfy the code implementation details are "UserPhoto, MakeSmallerFilter, BlackAndWhiteFilter, Album, and the interface Photo They are found by going through src > java > photoeditor.photoeditorFX > HelloApplication
+The classes that satisfy the code implementation details are "UserPhoto, MakeSmallerFilter, BlackAndWhiteFilter, Album,  the interface class Photo, and the abstract class Filter. They are found by going through src > java > photoeditor.photoeditorFX > HelloApplication
 
 to run the application go to src > java > photoeditor.photoeditorFX > HelloApplication then click the play button. The project will
 compile and then start the application.
