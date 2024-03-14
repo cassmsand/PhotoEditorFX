@@ -8,8 +8,17 @@ the pane on the right near the bottom there is a dropdown menu labeled "Gradle J
 "Eclipse Temurin (AdoptOpenJDK HotSpot) 20.0.2". If you have a Mac with Apple Silicon select
 "Eclipse Temurin (AdoptOpenJDK HotSpot) 20.0.2 aarch64".
 
-The classes that satisfy the code implementation details are "UserPhoto, MakeSmallerFilter, BlackAndWhiteFilter, Album,  the interface class Photo, and the abstract class Filter. 
-They are found by going through src > java > photoeditor.photoeditorFX > HelloApplication
 
-To run the application, go to src > java > photoeditor.photoeditorFX > HelloApplication then click the run button.
+How is the code structured? Where are the classes that satisfy the “Code Implementation” requirements?
+
+The classes that satisfy the code implementation details are UserPhoto, MakeSmallerFilter, BlackAndWhiteFilter, Album,  
+the interface class Photo, and the abstract class Filter.
+They are found by going opening the following folders: src > main > java > photoeditor.photoeditorFX.
+The classes to run the .fxml file are HelloApplication and HelloController. The .fxml named "PhotoEditorGUI.fxml" can 
+be found by going into src > main > resources > photoeditor.photoeditorFX > PhotoEditorGUI.fxml".
+
+
+How does one run the application?
+
+To run the application, go to src > main > java > photoeditor.photoeditorFX > HelloApplication then click the run button.
 The project will compile and then start the application.
