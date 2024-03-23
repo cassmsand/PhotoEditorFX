@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -17,6 +19,8 @@ public class HelloController {
     private ComboBox<String> comboBox2;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Slider brightnessSlider;
    // @FXML
     //private MenuItem applyblackandwhite;
 
@@ -38,6 +42,13 @@ public class HelloController {
                 "0.0625x"
         );
         comboBox2.setItems(options2);
+
+        brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(brightnessSlider.getValue());
+            imageView.setEffect(colorAdjust);
+        });
+
     }
 
     @FXML
