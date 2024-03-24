@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,9 +22,11 @@ public class HelloController {
     @FXML
     private Slider brightnessSlider;
     @FXML
-    private Slider highlightsSlider;
+    private Slider hueSlider;
     @FXML
-    private Slider shadowsSlider;
+    private Slider saturationSlider;
+    @FXML
+    private Slider contrastSlider;
 
    // @FXML
     //private MenuItem applyblackandwhite;
@@ -49,9 +50,7 @@ public class HelloController {
         );
         comboBox2.setItems(options2);
         ColorAdjust colorAdjust = new ColorAdjust();
-        Bloom bloom = new Bloom();
 
-        colorAdjust.setInput(bloom);
 
 
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
@@ -61,11 +60,28 @@ public class HelloController {
 
             imageView.setEffect(colorAdjust);
         });
-        shadowsSlider.valueProperty().addListener((observableValue, number, t1) -> {
+        contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
 
 
-            bloom.setThreshold(1-shadowsSlider.getValue());
+            colorAdjust.setContrast(contrastSlider.getValue());
 
+            imageView.setEffect(colorAdjust);
+
+        });
+        hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
+
+
+            colorAdjust.setHue(hueSlider.getValue());
+
+            imageView.setEffect(colorAdjust);
+
+        });
+        saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
+
+
+            colorAdjust.setSaturation(saturationSlider.getValue());
+
+            imageView.setEffect(colorAdjust);
 
         });
 

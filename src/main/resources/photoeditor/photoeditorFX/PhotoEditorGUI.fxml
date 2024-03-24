@@ -86,24 +86,34 @@
                     </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <Menu mnemonicParsing="false" text="Highlights">
+                  <Menu mnemonicParsing="false" text="Hue">
                     <items>
                       <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Slider fx:id="highlightsSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="hueSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                            </graphic>
                         </MenuItem>
                     </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <Menu mnemonicParsing="false" text="Shadows">
+                  <Menu mnemonicParsing="false" text="Contrast">
                     <items>
                       <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Slider fx:id="shadowsSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="contrastSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                            </graphic>
                         </MenuItem>
                     </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="Saturation">
+                     <items>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Slider fx:id="saturationSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                           </graphic>
+                        </MenuItem>
+                     </items>
                   </Menu>
                </items>
             </Menu>
