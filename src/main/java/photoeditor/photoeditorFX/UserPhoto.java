@@ -2,43 +2,46 @@ package photoeditor.photoeditorFX;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 
     //UPDATE TO WHEN PHOTO IS UPLOADED
     public class UserPhoto implements Photo {
-        private String photoPath;
-        private File photoFile;
         private String fileName;
         private long fileSize;
         private int width, height;
         private int photoNum;
-        private boolean isFilterAdded; //needs to be updated to 'true' once any filter is added, and set to 'false' if removed
-        private Filter photoFilter; //needs to be updated to the correct filter once added
+        private boolean isPhotoEdited; //needs to be updated to 'true' once any changes to the photo are made
 
         private int counter = 0;
 
         public UserPhoto (String photoPath) {
             try {
                 // Using the photoPath, create a photoFile object
-                photoFile = new File(photoPath);
+                File photoFile = new File(photoPath);
 
+                //Set photo file name to fileName
                 fileName = photoFile.getName();
+                System.out.println("File name: " + fileName);
+
+                //Set photo file size to fileSize
                 fileSize = photoFile.length();
+                System.out.println("File size: " + fileSize + " bytes");
 
                 // Get the height and width of the image
                 BufferedImage bufferedImage = ImageIO.read(photoFile);
                 this.width = bufferedImage.getWidth();
                 this.height = bufferedImage.getHeight();
+                System.out.println("Width: " + getWidth() + " pixels");
+                System.out.println("Height: " + getHeight() + " pixels");
 
                 // Set photo number
                 counter++;
                 photoNum = counter;
+                System.out.println("Photo number: " + photoNum);
 
-                isFilterAdded = false;
-                photoFilter = null;
+                isPhotoEdited = false;
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("Error - could not create Photo");
             }
 
@@ -58,7 +61,7 @@ import javax.imageio.ImageIO;
 
         public void setHeight(int newHeight) { height = newHeight; }
 
-        public boolean isFilterAdded() { return isFilterAdded; }
+        public boolean isPhotoEdited() { return isPhotoEdited; }
 
     }
 

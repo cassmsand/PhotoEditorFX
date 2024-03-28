@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class HelloController {
     @FXML
@@ -104,7 +106,7 @@ public class HelloController {
     }
 
     @FXML
-    private void onDragDropped(DragEvent event) {
+    private void onDragDropped(DragEvent event) throws URISyntaxException {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasFiles()) {
@@ -112,6 +114,20 @@ public class HelloController {
             String imagePath = db.getFiles().get(0).toURI().toString();
             Image image = new Image(imagePath);
             imageView.setImage(image);
+
+            //Get the file path from the imagePath
+            try {
+                URI uri = new URI(imagePath);
+                String directoryPath = uri.getPath();
+
+                //Connect Image to UserPhoto class
+                UserPhoto photo = new UserPhoto(directoryPath);
+
+            } catch (Exception e) {
+                System.out.println("Error in image path");
+            }
+
+
         }
         event.setDropCompleted(success);
         event.consume();
