@@ -18,7 +18,6 @@ public class HelloApplication extends Application {
             Scene scene = new Scene(root, 800, 600);
             stage.setTitle("Photo Editor");
             stage.setScene(scene);
-
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

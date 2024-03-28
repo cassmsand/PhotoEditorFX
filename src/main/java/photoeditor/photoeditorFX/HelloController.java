@@ -19,6 +19,8 @@ public class HelloController {
     private ComboBox<String> comboBox2;
     @FXML
     private ImageView imageView;
+
+    /* Slider fields
     @FXML
     private Slider brightnessSlider;
     @FXML
@@ -27,6 +29,7 @@ public class HelloController {
     private Slider saturationSlider;
     @FXML
     private Slider contrastSlider;
+*/
 
    // @FXML
     //private MenuItem applyblackandwhite;
@@ -52,6 +55,7 @@ public class HelloController {
         ColorAdjust colorAdjust = new ColorAdjust();
 
 
+/* This entire section effects 4 sliders, starting with brightnessSlider and ending with saturationSlider
 
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
 
@@ -84,7 +88,7 @@ public class HelloController {
             imageView.setEffect(colorAdjust);
 
         });
-
+*/
 
     }
 
