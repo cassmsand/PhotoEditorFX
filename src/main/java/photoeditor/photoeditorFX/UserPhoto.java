@@ -1,5 +1,6 @@
 package photoeditor.photoeditorFX;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -7,6 +8,7 @@ import javax.imageio.ImageIO;
     //UPDATE TO WHEN PHOTO IS UPLOADED
     public class UserPhoto implements Photo {
         private File photoFile;
+        private BufferedImage photoImage;
         private String fileName;
         private long fileSize;
         private int width, height;
@@ -17,21 +19,23 @@ import javax.imageio.ImageIO;
 
         public UserPhoto (String photoPath) {
             try {
-                // Using the photoPath, create a photoFile object
+                // Using the photoPath, create a File object
                 photoFile = new File(photoPath);
 
-                //Set photo file name to fileName
+                // Convert the photoFile to a BufferedImage object
+                photoImage = ImageIO.read(photoFile);
+
+                // Set fileName
                 fileName = photoFile.getName();
                 System.out.println("File name: " + fileName);
 
-                //Set photo file size to fileSize
+                // Set fileSize
                 fileSize = photoFile.length();
                 System.out.println("File size: " + fileSize + " bytes");
 
-                // Get the height and width of the image
-                BufferedImage bufferedImage = ImageIO.read(photoFile);
-                this.width = bufferedImage.getWidth();
-                this.height = bufferedImage.getHeight();
+                // Get the height and width of the buffered image
+                this.width = photoImage.getWidth();
+                this.height = photoImage.getHeight();
                 System.out.println("Width: " + getWidth() + " pixels");
                 System.out.println("Height: " + getHeight() + " pixels");
 
@@ -48,7 +52,9 @@ import javax.imageio.ImageIO;
 
         }
 
-        public File getPhotoFile() { return photoFile; }
+        public File getFile() { return photoFile; }
+
+        public BufferedImage getImage() { return photoImage; }
 
         public String getFileName() { return fileName; }
 
