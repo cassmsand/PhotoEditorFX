@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public interface Photo {
+        public File getPhotoFile();
         public String getFileName();
         public long getFileSize();
         public int getWidth();

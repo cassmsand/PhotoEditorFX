@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
     //UPDATE TO WHEN PHOTO IS UPLOADED
     public class UserPhoto implements Photo {
+        private File photoFile;
         private String fileName;
         private long fileSize;
         private int width, height;
@@ -17,7 +18,7 @@ import javax.imageio.ImageIO;
         public UserPhoto (String photoPath) {
             try {
                 // Using the photoPath, create a photoFile object
-                File photoFile = new File(photoPath);
+                photoFile = new File(photoPath);
 
                 //Set photo file name to fileName
                 fileName = photoFile.getName();
@@ -46,6 +47,8 @@ import javax.imageio.ImageIO;
             }
 
         }
+
+        public File getPhotoFile() { return photoFile; }
 
         public String getFileName() { return fileName; }
 
