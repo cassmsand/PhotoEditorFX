@@ -54,7 +54,7 @@ import javax.imageio.ImageIO;
 
         public File getFile() { return photoFile; }
 
-        public BufferedImage getImage() { return photoImage; }
+        public BufferedImage getImage() { return image; }
 
         public String getFileName() { return fileName; }
 
