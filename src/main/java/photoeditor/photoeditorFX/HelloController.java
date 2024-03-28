@@ -32,6 +32,7 @@ public class HelloController {
     //private MenuItem applyblackandwhite;
 
     public void initialize() {
+        //Sets the "increase size" options under the resize tab
         ObservableList<String> options1 = FXCollections.observableArrayList(
                 "1x",
                 "2x",
@@ -41,6 +42,7 @@ public class HelloController {
         );
         comboBox1.setItems(options1);
 
+        //Sets the "decrease size" options under the resize tab
         ObservableList<String> options2 = FXCollections.observableArrayList(
                 "1x",
                 "0.5x",
@@ -49,9 +51,8 @@ public class HelloController {
                 "0.0625x"
         );
         comboBox2.setItems(options2);
+
         ColorAdjust colorAdjust = new ColorAdjust();
-
-
 
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
 

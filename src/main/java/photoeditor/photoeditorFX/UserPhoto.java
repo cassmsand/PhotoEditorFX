@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+    //UPDATE TO WHEN PHOTO IS UPLOADED
     public class UserPhoto implements Photo {
         private String photoPath;
         private File photoFile;
