@@ -50,12 +50,11 @@ public class HelloController {
         );
         comboBox2.setItems(options2);
 
-
-        /* This is where the work for the sliders starts
+        //class that's used to set image effects
         ColorAdjust colorAdjust = new ColorAdjust();
 
 
-
+        //listener for each color effect slider to set strength of effect on image
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
 
 
@@ -63,6 +62,7 @@ public class HelloController {
 
             imageView.setEffect(colorAdjust);
         });
+
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
 
 
@@ -71,6 +71,7 @@ public class HelloController {
             imageView.setEffect(colorAdjust);
 
         });
+
         hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
 
 
@@ -79,6 +80,7 @@ public class HelloController {
             imageView.setEffect(colorAdjust);
 
         });
+
         saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
 
 
@@ -88,7 +90,7 @@ public class HelloController {
 
         });
 
-         */
+
 
 
     }
