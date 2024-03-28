@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
     //UPDATE TO WHEN PHOTO IS UPLOADED
     public class UserPhoto implements Photo {
         private File photoFile;
-        private BufferedImage photoImage;
+        private BufferedImage image;
         private String fileName;
         private long fileSize;
         private int width, height;
@@ -23,7 +23,7 @@ import javax.imageio.ImageIO;
                 photoFile = new File(photoPath);
 
                 // Convert the photoFile to a BufferedImage object
-                photoImage = ImageIO.read(photoFile);
+                image = ImageIO.read(photoFile);
 
                 // Set fileName
                 fileName = photoFile.getName();
@@ -34,8 +34,8 @@ import javax.imageio.ImageIO;
                 System.out.println("File size: " + fileSize + " bytes");
 
                 // Get the height and width of the buffered image
-                this.width = photoImage.getWidth();
-                this.height = photoImage.getHeight();
+                this.width = image.getWidth();
+                this.height = image.getHeight();
                 System.out.println("Width: " + getWidth() + " pixels");
                 System.out.println("Height: " + getHeight() + " pixels");
 
