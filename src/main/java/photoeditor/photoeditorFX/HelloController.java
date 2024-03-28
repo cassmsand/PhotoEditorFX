@@ -49,6 +49,9 @@ public class HelloController {
                 "0.0625x"
         );
         comboBox2.setItems(options2);
+
+
+        /* This is where the work for the sliders starts
         ColorAdjust colorAdjust = new ColorAdjust();
 
 
@@ -84,6 +87,8 @@ public class HelloController {
             imageView.setEffect(colorAdjust);
 
         });
+
+         */
 
 
     }
