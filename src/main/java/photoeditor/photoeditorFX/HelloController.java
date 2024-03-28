@@ -29,9 +29,8 @@ public class HelloController {
     private Slider saturationSlider;
     @FXML
     private Slider contrastSlider;
-
-   // @FXML
-    //private MenuItem applyblackandwhite;
+    @FXML
+    private UserPhoto photo;
 
     public void initialize() {
         ObservableList<String> options1 = FXCollections.observableArrayList(
@@ -121,7 +120,7 @@ public class HelloController {
                 String directoryPath = uri.getPath();
 
                 //Connect Image to UserPhoto class
-                UserPhoto photo = new UserPhoto(directoryPath);
+                photo = new UserPhoto(directoryPath);
 
             } catch (Exception e) {
                 System.out.println("Error in image path");
@@ -141,6 +140,12 @@ public class HelloController {
     @FXML
     private void applyBlackAndWhite() {
         // Implement the action to be performed when the MenuItem is clicked
-       System.out.println("apply black and white");
+        System.out.println("apply black and white");
+    }
+
+    @FXML
+    public void applySave() {
+        photo.savePhoto(imageView);
     }
 }
+
