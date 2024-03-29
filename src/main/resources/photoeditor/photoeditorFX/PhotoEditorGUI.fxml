@@ -56,7 +56,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Save" onAction="#applySave"/>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" text="Quit" onAction="#applyQuit"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Apply Filter">

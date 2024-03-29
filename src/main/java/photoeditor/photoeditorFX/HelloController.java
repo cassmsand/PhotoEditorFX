@@ -2,6 +2,7 @@ package photoeditor.photoeditorFX;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -145,8 +146,12 @@ public class HelloController {
 
     @FXML
     public void applySave() {
-
+        //Pull Save Photo method from UserPhoto Object
         photo.savePhoto(imageView,wim);
+    }
+
+    public void applyQuit() {
+
     }
 }
 
