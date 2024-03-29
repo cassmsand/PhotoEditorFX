@@ -1,13 +1,11 @@
 package photoeditor.photoeditorFX;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-import javafx.stage.Window;
 import javafx.embed.swing.SwingFXUtils;
 
 //UPDATE TO WHEN PHOTO IS UPLOADED
