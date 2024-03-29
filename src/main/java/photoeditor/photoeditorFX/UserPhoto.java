@@ -91,6 +91,7 @@ public class UserPhoto implements Photo {
             File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
             if (file != null) {
                 try {
+                    //saving image with applied effects
                     ImageIO.write(SwingFXUtils.fromFXImage(imageView.snapshot(null,w), null), "png", file);
                     System.out.println("Image saved successfully.");
                 } catch (Exception e) {

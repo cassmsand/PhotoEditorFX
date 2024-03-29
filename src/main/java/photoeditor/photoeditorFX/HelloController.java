@@ -37,7 +37,7 @@ public class HelloController {
     private WritableImage wim;
 
     public void initialize() {
-        WritableImage wim = new WritableImage(800, 600);
+
         ObservableList<String> options1 = FXCollections.observableArrayList(
                 "1x",
                 "2x",
@@ -55,6 +55,9 @@ public class HelloController {
                 "0.0625x"
         );
         comboBox2.setItems(options2);
+
+        //Creating object that'll save image with applied effect, dimensions don't affect final result.
+        WritableImage wim = new WritableImage( 800, 600);
 
         //class that's used to set image effects
         ColorAdjust colorAdjust = new ColorAdjust();
@@ -117,6 +120,7 @@ public class HelloController {
                 //Connect Image to UserPhoto class
                 photo = new UserPhoto(directoryPath);
 
+
             } catch (Exception e) {
                 System.out.println("Error in image path");
             }
@@ -140,7 +144,7 @@ public class HelloController {
 
     @FXML
     public void applySave() {
-        imageView.snapshot(null,wim);
+
         photo.savePhoto(imageView,wim);
     }
 }
