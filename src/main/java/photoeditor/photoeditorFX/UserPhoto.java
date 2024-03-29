@@ -76,11 +76,13 @@ public class UserPhoto implements Photo {
     public boolean isPhotoEdited() { this.isPhotoEdited = true; return isPhotoEdited;}
 
     public void savePhoto(ImageView imageView,WritableImage w) {
-
+        //If there is an image uploaded
         if (image != null) {
+            //Open file chooser
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Photo");
 
+            //Add file options to dropdown menu
             fileChooser.getExtensionFilters().addAll(
                     //Photo can be saved as a JPEG, PNG, or a GIF
                     new FileChooser.ExtensionFilter("JPEG", "*.jpg"),
@@ -88,7 +90,9 @@ public class UserPhoto implements Photo {
                     new FileChooser.ExtensionFilter("GIF", "*.gif")
             );
 
+            // Save the contents to a file
             File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
+            //If the file is not null
             if (file != null) {
                 try {
                     //saving image with applied effects
