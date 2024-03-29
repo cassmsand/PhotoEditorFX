@@ -75,7 +75,7 @@ public class HelloController {
             colorAdjust.setSaturation(saturationSlider.getValue());
             imageView.setEffect(colorAdjust);
         });
-        
+
     }
 
     @FXML

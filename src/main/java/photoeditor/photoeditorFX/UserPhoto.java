@@ -78,9 +78,7 @@ public class UserPhoto implements Photo {
 
     public void savePhoto(ImageView imageView) {
 
-        BufferedImage savedPhoto = image;
-
-        if (savedPhoto != null) {
+        if (image != null) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Photo");
 
@@ -94,7 +92,7 @@ public class UserPhoto implements Photo {
             File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
             if (file != null) {
                 try {
-                    ImageIO.write(savedPhoto, "png", file);
+                    ImageIO.write(image, "png", file);
                     System.out.println("Image saved successfully.");
                 } catch (Exception e) {
                     System.out.println("Error saving image.");
