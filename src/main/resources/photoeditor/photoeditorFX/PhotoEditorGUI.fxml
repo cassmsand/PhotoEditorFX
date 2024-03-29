@@ -52,11 +52,11 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
+            <MenuItem mnemonicParsing="false" text="Open..." />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save" onAction="#applySave"/>
+            <MenuItem mnemonicParsing="false" onAction="#applySave" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" onAction="#applyQuit"/>
+            <MenuItem mnemonicParsing="false" onAction="#applyQuit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Apply Filter">
@@ -162,7 +162,7 @@
       <children>
         <Label alignment="CENTER" layoutX="116.0" layoutY="164.0" style="&#10;" text="Drag and drop photo here..." textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" AnchorPane.bottomAnchor="164.5" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="164.0">
           <font>
-            <Font size="36.0" />
+            <Font name="Optima Bold" size="36.0" />
           </font>
         </Label>
             <ImageView fx:id="imageView" fitHeight="600.0" fitWidth="800.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

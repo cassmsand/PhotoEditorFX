@@ -166,6 +166,7 @@ public class HelloController {
 
         // Add "Are you sure you want to quit?"
         JLabel label = new JLabel("Are you sure you want to quit?");
+        label.setFont(new Font("Optima", Font.PLAIN, 16));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
         quitFrame.add(label, BorderLayout.CENTER);
