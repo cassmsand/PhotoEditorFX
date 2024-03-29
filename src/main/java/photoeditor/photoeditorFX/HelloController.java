@@ -13,11 +13,18 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
 public class HelloController {
+    //added for the quit class
+    private static Stage mainStage;
     @FXML
     private ComboBox<String> comboBox1;
     @FXML
@@ -36,6 +43,7 @@ public class HelloController {
     private UserPhoto photo;
 
     private WritableImage wim;
+
 
     public void initialize() {
 
@@ -115,13 +123,11 @@ public class HelloController {
             //Get the file path from the imagePath
             try {
 
-
                 URI uri = new URI(imagePath);
                 String directoryPath = uri.getPath();
 
                 //Connect Image to UserPhoto class
                 photo = new UserPhoto(directoryPath);
-
 
             } catch (Exception e) {
                 System.out.println("Error in image path");
@@ -150,8 +156,55 @@ public class HelloController {
         photo.savePhoto(imageView,wim);
     }
 
+    @FXML
     public void applyQuit() {
+        // Create JFrame quitFrame object
+        JFrame quitFrame = new JFrame();
+        quitFrame.setSize(new Dimension(300,150));
+        quitFrame.setLocationRelativeTo(null);
+        quitFrame.setVisible(true);
 
+        // Add "Are you sure you want to quit?"
+        JLabel label = new JLabel("Are you sure you want to quit?");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        quitFrame.add(label, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // 1 row, 2 columns
+        quitFrame.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Create YES and NO buttons with labels
+        JButton noButton = new JButton("<html><center>No</center></html>");
+        JButton yesButton = new JButton("<html><center>Yes</center></html>");
+        // Add YES and NO buttons
+        buttonPanel.add(noButton);
+        buttonPanel.add(yesButton);
+
+        // Add ActionListener to the Yes button
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                System.out.println("Yes button clicked");
+                quitFrame.dispose();
+                // Exit the entire application
+                System.exit(0);
+            }
+        });
+
+        // Add ActionListener to the No button
+        noButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                System.out.println("No button clicked");
+                quitFrame.dispose();
+            }
+        });
+
+        quitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+
+
+
 }
 

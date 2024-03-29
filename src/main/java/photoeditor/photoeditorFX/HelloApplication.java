@@ -16,6 +16,7 @@ public class HelloApplication extends Application {
             Parent root = fxmlLoader.load();
 
             Scene scene = new Scene(root, 800, 600);
+
             stage.setTitle("Photo Editor");
             stage.setScene(scene);
             stage.show();
