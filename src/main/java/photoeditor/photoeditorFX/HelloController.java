@@ -57,43 +57,25 @@ public class HelloController {
 
         //listener for each color effect slider to set strength of effect on image
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
-
-
             colorAdjust.setBrightness(brightnessSlider.getValue());
-
             imageView.setEffect(colorAdjust);
         });
 
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
-
-
             colorAdjust.setContrast(contrastSlider.getValue());
-
             imageView.setEffect(colorAdjust);
-
         });
 
         hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
-
-
             colorAdjust.setHue(hueSlider.getValue());
-
             imageView.setEffect(colorAdjust);
-
         });
 
         saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
-
-
             colorAdjust.setSaturation(saturationSlider.getValue());
-
             imageView.setEffect(colorAdjust);
-
         });
-
-
-
-
+        
     }
 
     @FXML
