@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javafx.stage.Window;
+import javafx.embed.swing.SwingFXUtils;
 
 //UPDATE TO WHEN PHOTO IS UPLOADED
 public class UserPhoto implements Photo {
@@ -76,7 +77,7 @@ public class UserPhoto implements Photo {
 
     public boolean isPhotoEdited() { return isPhotoEdited; }
 
-    public void savePhoto(ImageView imageView) {
+    public void savePhoto(ImageView imageView,WritableImage w) {
 
         if (image != null) {
             FileChooser fileChooser = new FileChooser();
@@ -92,7 +93,7 @@ public class UserPhoto implements Photo {
             File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
             if (file != null) {
                 try {
-                    ImageIO.write(image, "png", file);
+                    ImageIO.write(SwingFXUtils.fromFXImage(imageView.snapshot(null,w), null), "png", file);
                     System.out.println("Image saved successfully.");
                 } catch (Exception e) {
                     System.out.println("Error saving image.");

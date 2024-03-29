@@ -8,11 +8,13 @@ import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 
 public class HelloController {
     @FXML
@@ -32,7 +34,10 @@ public class HelloController {
     @FXML
     private UserPhoto photo;
 
+    private WritableImage wim;
+
     public void initialize() {
+        WritableImage wim = new WritableImage(800, 600);
         ObservableList<String> options1 = FXCollections.observableArrayList(
                 "1x",
                 "2x",
@@ -59,22 +64,28 @@ public class HelloController {
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setBrightness(brightnessSlider.getValue());
             imageView.setEffect(colorAdjust);
+
         });
 
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setContrast(contrastSlider.getValue());
             imageView.setEffect(colorAdjust);
+
         });
 
         hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setHue(hueSlider.getValue());
             imageView.setEffect(colorAdjust);
+
         });
 
         saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setSaturation(saturationSlider.getValue());
             imageView.setEffect(colorAdjust);
+
         });
+
+
 
     }
 
@@ -98,6 +109,8 @@ public class HelloController {
 
             //Get the file path from the imagePath
             try {
+
+
                 URI uri = new URI(imagePath);
                 String directoryPath = uri.getPath();
 
@@ -127,7 +140,8 @@ public class HelloController {
 
     @FXML
     public void applySave() {
-        photo.savePhoto(imageView);
+        imageView.snapshot(null,wim);
+        photo.savePhoto(imageView,wim);
     }
 }
 
