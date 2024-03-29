@@ -67,25 +67,26 @@ public class HelloController {
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setBrightness(brightnessSlider.getValue());
             imageView.setEffect(colorAdjust);
+            photo.isPhotoEdited();
 
         });
 
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setContrast(contrastSlider.getValue());
             imageView.setEffect(colorAdjust);
-
+            photo.isPhotoEdited();
         });
 
         hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setHue(hueSlider.getValue());
             imageView.setEffect(colorAdjust);
-
+            photo.isPhotoEdited();
         });
 
         saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setSaturation(saturationSlider.getValue());
             imageView.setEffect(colorAdjust);
-
+            photo.isPhotoEdited();
         });
 
 

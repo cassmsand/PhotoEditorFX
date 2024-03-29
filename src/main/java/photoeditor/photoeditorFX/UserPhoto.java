@@ -73,7 +73,7 @@ public class UserPhoto implements Photo {
 
     public void setHeight(int newHeight) { height = newHeight; }
 
-    public boolean isPhotoEdited() { return isPhotoEdited; }
+    public boolean isPhotoEdited() { this.isPhotoEdited = true; return isPhotoEdited;}
 
     public void savePhoto(ImageView imageView,WritableImage w) {
 
