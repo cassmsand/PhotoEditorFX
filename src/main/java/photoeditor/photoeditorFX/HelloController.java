@@ -161,11 +161,10 @@ public class HelloController {
             yesButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    newFrame.dispose();
-                    //EDIT THIS PART TO SAVE PHOTO
+                    newFrame.dispose(); //Clear frame
                     Platform.runLater(() -> {
-                        applySave();
-                        deleteImage();
+                        applySave(); //Save photo
+                        deleteImage(); //Delete photo object and update the imageView
                     });
                 }
             });
@@ -174,8 +173,8 @@ public class HelloController {
             noButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    newFrame.dispose();
-                    deleteImage();
+                    newFrame.dispose(); //Clear frame
+                    deleteImage(); //Delete photo object and update the imageView
                 }
             });
 
@@ -195,7 +194,7 @@ public class HelloController {
             yesButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    openFrame.dispose();
+                    openFrame.dispose(); //Clear frame
                     Platform.runLater(() -> {
                         applySave(); //Saves photo
                         deleteImage(); //Deletes photo
@@ -209,7 +208,7 @@ public class HelloController {
             noButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    openFrame.dispose();
+                    openFrame.dispose(); //Clear frame
                     deleteImage(); // Deletes photo
                     Platform.runLater(() -> {
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
@@ -219,9 +218,10 @@ public class HelloController {
             });
 
             openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         } else {
-            File selectedFile = selectFile(imageView.getScene().getWindow());
-            displayFile(selectedFile);
+            File selectedFile = selectFile(imageView.getScene().getWindow()); //Select a new file
+            displayFile(selectedFile); //Display the file
         }
     }
 
@@ -237,9 +237,8 @@ public class HelloController {
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                quitFrame.dispose();
-                // Exit the entire application
-                System.exit(0);
+                quitFrame.dispose(); //Clear frame
+                System.exit(0); // Exit the entire application
             }
         });
 
@@ -247,7 +246,7 @@ public class HelloController {
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                quitFrame.dispose();
+                quitFrame.dispose(); //Clear frame
             }
         });
 
@@ -299,6 +298,7 @@ public class HelloController {
         }
     }
 
+    //Select a file from the fileChooser
     private File selectFile(javafx.stage.Window window) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -312,6 +312,7 @@ public class HelloController {
 
     }
 
+    //Display a file in the imageView
     private void displayFile(File file) {
         // Handle the selected file
         if (file != null) {
