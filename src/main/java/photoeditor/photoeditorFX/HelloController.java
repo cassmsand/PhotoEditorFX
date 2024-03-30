@@ -220,7 +220,8 @@ public class HelloController {
 
             openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         } else {
-            selectFile(imageView.getScene().getWindow());
+            File selectedFile = selectFile(imageView.getScene().getWindow());
+            displayFile(selectedFile);
         }
     }
 
