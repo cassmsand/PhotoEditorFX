@@ -16,7 +16,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +24,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 
 public class HelloController {
     @FXML
@@ -150,6 +148,7 @@ public class HelloController {
         System.out.println("apply black and white");
     }
 
+    @FXML
     public void applyNew() {
         if (photo != null) {
             // Create JFrame quitFrame object and return yes/no buttons to assign actions
@@ -185,10 +184,51 @@ public class HelloController {
     }
 
     @FXML
+    public void applyOpen() {
+        if (photo != null) {
+            JFrame openFrame = new JFrame();
+            JButton[] buttons = yesNoBox(openFrame, "Do you want to save your photo?");
+            JButton noButton = buttons[0];
+            JButton yesButton = buttons[1];
+
+            // Add ActionListener to the Yes button
+            yesButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    openFrame.dispose();
+                    Platform.runLater(() -> {
+                        applySave(); //Saves photo
+                        deleteImage(); //Deletes photo
+                        File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a file
+                        displayFile(selectedFile); //displays the file
+                    });
+                }
+            });
+
+            // Add ActionListener to the No button
+            noButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    openFrame.dispose();
+                    deleteImage(); // Deletes photo
+                    Platform.runLater(() -> {
+                        File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
+                        displayFile(selectedFile); //Displays the file
+                    });
+                }
+            });
+
+            openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        } else {
+            selectFile(imageView.getScene().getWindow());
+        }
+    }
+
+    @FXML
     public void applyQuit() {
         // Create JFrame quitFrame object and return yes/no buttons to assign actions
         JFrame quitFrame = new JFrame();
-        JButton[] buttons = yesNoBox(quitFrame, "Are you sure you want to quit");
+        JButton[] buttons = yesNoBox(quitFrame, "Are you sure you want to quit?");
         JButton noButton = buttons[0];
         JButton yesButton = buttons[1];
 
@@ -231,6 +271,7 @@ public class HelloController {
 
             // Save the contents to a file
             File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
+
             //If the file is not null
             if (file != null) {
                 try {
@@ -243,20 +284,54 @@ public class HelloController {
             }
         } else {
             //ERROR NO PHOTO TO SAVE
-            JFrame saveFrame = new JFrame();
-            saveFrame.setSize(new Dimension(300,150));
-            saveFrame.setLocationRelativeTo(null);
-            saveFrame.setVisible(true);
-
-            // Show "Error - no photo uploaded"
-            JLabel label = new JLabel("Error - no photo uploaded");
-            label.setFont(new Font("Optima", Font.PLAIN, 16));
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setVerticalAlignment(SwingConstants.CENTER);
-            saveFrame.add(label, BorderLayout.CENTER);
+            errorBox("Error - no photo uploaded");
         }
     }
 
+    // Deletes the photo object and clears the imageView
+    private void deleteImage() {
+        // Set the ImageView's image property to null
+        imageView.setImage(null);
+        // Dispose the photo object if it's not null
+        if (photo != null) {
+            photo = null;
+        }
+    }
+
+    private File selectFile(javafx.stage.Window window) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+
+        //Only allow certain photos to be uploaded
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        return fileChooser.showOpenDialog(window);
+
+    }
+
+    private void displayFile(File file) {
+        // Handle the selected file
+        if (file != null) {
+            // You can perform further operations with the selected file here
+            Image image = new Image(file.toURI().toString());
+            imageView.setImage(image);
+
+            //Get the file path from the imagePath
+            try {
+                //Connect Image to UserPhoto class
+                photo = new UserPhoto(file.getAbsolutePath());
+
+            } catch (Exception e) {
+                System.out.println("Error in image path");
+            }
+        } else {
+            System.out.println("No file selected.");
+        }
+    }
+
+    //Creates a yes/no box with a phrase and returns two JButton object to assign actions
     private JButton[] yesNoBox(JFrame frame, String phrase) {
         // Create JFrame frame object
         frame.setSize(new Dimension(300,150));
@@ -283,15 +358,19 @@ public class HelloController {
         return new JButton[]{noButton, yesButton};
     }
 
-    @FXML
-    private void deleteImage() {
-        // Set the ImageView's image property to null
-        imageView.setImage(null);
-        // Dispose the photo object if it's not null
-        if (photo != null) {
-            photo = null;
-        }
-    }
+    //Creates an error box pop with a phrase
+    private void errorBox(String phrase) {
+        JFrame saveFrame = new JFrame();
+        saveFrame.setSize(new Dimension(300,150));
+        saveFrame.setLocationRelativeTo(null);
+        saveFrame.setVisible(true);
 
+        // Show "Error - no photo uploaded"
+        JLabel label = new JLabel(phrase);
+        label.setFont(new Font("Optima", Font.PLAIN, 16));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        saveFrame.add(label, BorderLayout.CENTER);
+    }
 }
 
