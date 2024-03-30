@@ -162,7 +162,6 @@ public class HelloController {
             yesButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Yes button clicked");
                     newFrame.dispose();
                     //EDIT THIS PART TO SAVE PHOTO
                     Platform.runLater(() -> {
@@ -175,7 +174,6 @@ public class HelloController {
             noButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("No button clicked");
                     newFrame.dispose();
                 }
             });
@@ -258,7 +256,7 @@ public class HelloController {
         }
     }
 
-    public JButton[] yesNoBox(JFrame frame, String phrase) {
+    private JButton[] yesNoBox(JFrame frame, String phrase) {
         // Create JFrame frame object
         frame.setSize(new Dimension(300,150));
         frame.setLocationRelativeTo(null);
