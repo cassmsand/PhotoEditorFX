@@ -152,7 +152,7 @@ public class HelloController {
 
     public void applyNew() {
         if (photo != null) {
-            // Create JFrame quitFrame object
+            // Create JFrame quitFrame object and return yes/no buttons to assign actions
             JFrame newFrame = new JFrame();
             JButton[] buttons = yesNoBox(newFrame, "Do you want to save your photo?");
             JButton noButton = buttons[0];
@@ -166,6 +166,7 @@ public class HelloController {
                     //EDIT THIS PART TO SAVE PHOTO
                     Platform.runLater(() -> {
                         applySave();
+                        deleteImage();
                     });
                 }
             });
@@ -175,17 +176,17 @@ public class HelloController {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     newFrame.dispose();
+                    deleteImage();
                 }
             });
 
             newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
-        //EDIT THIS PART
     }
 
     @FXML
     public void applyQuit() {
-        // Create JFrame quitFrame object
+        // Create JFrame quitFrame object and return yes/no buttons to assign actions
         JFrame quitFrame = new JFrame();
         JButton[] buttons = yesNoBox(quitFrame, "Are you sure you want to quit");
         JButton noButton = buttons[0];
@@ -280,6 +281,16 @@ public class HelloController {
         buttonPanel.add(yesButton);
 
         return new JButton[]{noButton, yesButton};
+    }
+
+    @FXML
+    private void deleteImage() {
+        // Set the ImageView's image property to null
+        imageView.setImage(null);
+        // Dispose the photo object if it's not null
+        if (photo != null) {
+            photo = null;
+        }
     }
 
 }
