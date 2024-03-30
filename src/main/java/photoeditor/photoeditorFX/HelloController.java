@@ -1,7 +1,9 @@
 package photoeditor.photoeditorFX;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -12,19 +14,20 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
 public class HelloController {
-    //added for the quit class
-    private static Stage mainStage;
     @FXML
     private ComboBox<String> comboBox1;
     @FXML
@@ -41,9 +44,9 @@ public class HelloController {
     private Slider contrastSlider;
     @FXML
     private UserPhoto photo;
-
     private WritableImage wim;
-
+    //added for the quit class
+    private static Stage mainStage;
 
     public void initialize() {
 
@@ -98,8 +101,6 @@ public class HelloController {
             photo.isPhotoEdited();
         });
 
-
-
     }
 
     @FXML
@@ -133,7 +134,6 @@ public class HelloController {
                 System.out.println("Error in image path");
             }
 
-
         }
         event.setDropCompleted(success);
         event.consume();
@@ -154,26 +154,9 @@ public class HelloController {
         if (photo != null) {
             // Create JFrame quitFrame object
             JFrame newFrame = new JFrame();
-            newFrame.setSize(new Dimension(300, 150));
-            newFrame.setLocationRelativeTo(null);
-            newFrame.setVisible(true);
-
-            // Ask "Do you want to save your photo?
-            JLabel label = new JLabel("Do you want to save your photo?");
-            label.setFont(new Font("Optima", Font.PLAIN, 16));
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setVerticalAlignment(SwingConstants.CENTER);
-            newFrame.add(label, BorderLayout.CENTER);
-
-            JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // 1 row, 2 columns
-            newFrame.add(buttonPanel, BorderLayout.SOUTH);
-
-            // Create YES and NO buttons with labels
-            JButton noButton = new JButton("<html><center>No</center></html>");
-            JButton yesButton = new JButton("<html><center>Yes</center></html>");
-            // Add YES and NO buttons
-            buttonPanel.add(noButton);
-            buttonPanel.add(yesButton);
+            JButton[] buttons = yesNoBox(newFrame, "Do you want to save your photo?");
+            JButton noButton = buttons[0];
+            JButton yesButton = buttons[1];
 
             // Add ActionListener to the Yes button
             yesButton.addActionListener(new ActionListener() {
@@ -182,6 +165,9 @@ public class HelloController {
                     System.out.println("Yes button clicked");
                     newFrame.dispose();
                     //EDIT THIS PART TO SAVE PHOTO
+                    Platform.runLater(() -> {
+                        applySave();
+                    });
                 }
             });
 
@@ -203,26 +189,9 @@ public class HelloController {
     public void applyQuit() {
         // Create JFrame quitFrame object
         JFrame quitFrame = new JFrame();
-        quitFrame.setSize(new Dimension(300,150));
-        quitFrame.setLocationRelativeTo(null);
-        quitFrame.setVisible(true);
-
-        // Ask "Are you sure you want to quit?"
-        JLabel label = new JLabel("Are you sure you want to quit?");
-        label.setFont(new Font("Optima", Font.PLAIN, 16));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.CENTER);
-        quitFrame.add(label, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // 1 row, 2 columns
-        quitFrame.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Create YES and NO buttons with labels
-        JButton noButton = new JButton("<html><center>No</center></html>");
-        JButton yesButton = new JButton("<html><center>Yes</center></html>");
-        // Add YES and NO buttons
-        buttonPanel.add(noButton);
-        buttonPanel.add(yesButton);
+        JButton[] buttons = yesNoBox(quitFrame, "Are you sure you want to quit");
+        JButton noButton = buttons[0];
+        JButton yesButton = buttons[1];
 
         // Add ActionListener to the Yes button
         yesButton.addActionListener(new ActionListener() {
@@ -247,9 +216,32 @@ public class HelloController {
 
     @FXML
     public void applySave() {
-        //Pull Save Photo method from UserPhoto Object
+        //If there is an image uploaded
         if (photo != null) {
-            photo.savePhoto(imageView, wim);
+            //Open file chooser
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Photo");
+
+            //Add file options to dropdown menu
+            fileChooser.getExtensionFilters().addAll(
+                    //Photo can be saved as a JPEG, PNG, or a GIF
+                    new FileChooser.ExtensionFilter("JPEG", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG", "*.png"),
+                    new FileChooser.ExtensionFilter("GIF", "*.gif")
+            );
+
+            // Save the contents to a file
+            File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
+            //If the file is not null
+            if (file != null) {
+                try {
+                    //saving image with applied effects
+                    ImageIO.write(SwingFXUtils.fromFXImage(imageView.snapshot(null, wim), null), "png", file);
+                    System.out.println("Image saved successfully.");
+                } catch (Exception e) {
+                    System.out.println("Error saving image.");
+                }
+            }
         } else {
             //ERROR NO PHOTO TO SAVE
             JFrame saveFrame = new JFrame();
@@ -257,13 +249,39 @@ public class HelloController {
             saveFrame.setLocationRelativeTo(null);
             saveFrame.setVisible(true);
 
-            // Error - no photo uploaded"
+            // Show "Error - no photo uploaded"
             JLabel label = new JLabel("Error - no photo uploaded");
             label.setFont(new Font("Optima", Font.PLAIN, 16));
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setVerticalAlignment(SwingConstants.CENTER);
             saveFrame.add(label, BorderLayout.CENTER);
         }
+    }
+
+    public JButton[] yesNoBox(JFrame frame, String phrase) {
+        // Create JFrame frame object
+        frame.setSize(new Dimension(300,150));
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        // Ask "Are you sure you want to quit?"
+        JLabel label = new JLabel(phrase);
+        label.setFont(new Font("Optima", Font.PLAIN, 16));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        frame.add(label, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // 1 row, 2 columns
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Create YES and NO buttons with labels
+        JButton noButton = new JButton("<html><center>No</center></html>");
+        JButton yesButton = new JButton("<html><center>Yes</center></html>");
+        // Add YES and NO buttons
+        buttonPanel.add(noButton);
+        buttonPanel.add(yesButton);
+
+        return new JButton[]{noButton, yesButton};
     }
 
 }

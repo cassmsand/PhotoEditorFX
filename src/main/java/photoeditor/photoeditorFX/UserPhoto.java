@@ -75,37 +75,5 @@ public class UserPhoto implements Photo {
 
     public boolean isPhotoEdited() { this.isPhotoEdited = true; return isPhotoEdited;}
 
-    public void savePhoto(ImageView imageView,WritableImage w) {
-        //If there is an image uploaded
-        if (image != null) {
-            //Open file chooser
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Photo");
-
-            //Add file options to dropdown menu
-            fileChooser.getExtensionFilters().addAll(
-                    //Photo can be saved as a JPEG, PNG, or a GIF
-                    new FileChooser.ExtensionFilter("JPEG", "*.jpg"),
-                    new FileChooser.ExtensionFilter("PNG", "*.png"),
-                    new FileChooser.ExtensionFilter("GIF", "*.gif")
-            );
-
-            // Save the contents to a file
-            File file = fileChooser.showSaveDialog(imageView.getScene().getWindow());
-            //If the file is not null
-            if (file != null) {
-                try {
-                    //saving image with applied effects
-                    ImageIO.write(SwingFXUtils.fromFXImage(imageView.snapshot(null,w), null), "png", file);
-                    System.out.println("Image saved successfully.");
-                } catch (Exception e) {
-                    System.out.println("Error saving image.");
-                }
-            }
-        } else {
-            System.out.println("No image to save.");
-        }
-    }
-
 }
 
