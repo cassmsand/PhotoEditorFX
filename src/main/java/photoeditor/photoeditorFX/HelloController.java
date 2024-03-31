@@ -104,12 +104,14 @@ public class HelloController {
         comboBox1.setOnAction(event -> {
                 double scale = parseScale(comboBox1.getValue());
 
+
                 if( scale != 1.0) {
-                imageView.setFitHeight(scale * 800);
-                imageView.setFitWidth(scale * 600);
+
+                    imageView.setFitHeight(scale * photo.getHeight());
+                    imageView.setFitWidth(scale * photo.getWidth());
                 }else{
-                imageView.setFitHeight(600);
-                imageView.setFitWidth(800);
+                    imageView.setFitHeight(photo.getHeight());
+                    imageView.setFitWidth(photo.getWidth());
                 }
 
                 });
@@ -229,6 +231,10 @@ private void resizeWidth(double scaleFactor) {
 
                 //Connect Image to UserPhoto class
                 photo = new UserPhoto(directoryPath);
+
+                //setting aspect ratio of imageview to be the same as photo
+                imageView.setFitHeight(photo.getHeight());
+                imageView.setFitWidth(photo.getWidth());
 
 
             } catch (Exception e) {
@@ -422,6 +428,7 @@ private void resizeWidth(double scaleFactor) {
             // You can perform further operations with the selected file here
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
+
 
             //Get the file path from the imagePath
             try {
