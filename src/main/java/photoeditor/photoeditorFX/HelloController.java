@@ -102,7 +102,7 @@ public class HelloController {
         });
 
         //need to keep track of scale value for height/width slider as well as the sliders.
-        AtomicReference<Double> scale = new AtomicReference<>((double) 0);
+        AtomicReference<Double> scale = new AtomicReference<>((double) 1);
         // Add listener to comboBox1 for resizing up and down from 0.0625 to 5x
         comboBox1.setOnAction(event -> {
                     scale.set(parseScale(comboBox1.getValue()));
