@@ -140,7 +140,8 @@
                     <items>
                       <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Slider min="-100.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                               <Slider fx:id="heightSlider" min="-100.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+
                            </graphic>
                         </MenuItem>
                     </items>
@@ -149,7 +150,8 @@
                      <items>
                         <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Slider min="-100.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                               <Slider fx:id="widthSlider" min="-100.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+
                            </graphic>
                         </MenuItem>
                      </items>

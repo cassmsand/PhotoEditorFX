@@ -16,6 +16,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class HelloController {
     @FXML
     private ComboBox<String> comboBox2;
     @FXML
+
     private ImageView imageView;
     @FXML
     private Slider brightnessSlider;
@@ -42,9 +44,14 @@ public class HelloController {
     private Slider contrastSlider;
     @FXML
     private UserPhoto photo;
+    @FXML      // added for heightSlider
+    private Slider heightSlider;
+    @FXML     // added for widthSlider
+    private Slider widthSlider;
     private WritableImage wim;
     //added for the quit class
     private static Stage mainStage;
+
 
     public void initialize() {
 
@@ -99,8 +106,101 @@ public class HelloController {
             photo.isPhotoEdited();
         });
 
+        // Add listener to comboBox1 for resizing up
+        comboBox1.setOnAction(event -> resizeImage(comboBox1.getValue()));
+
+        // Add listener to comboBox2 for resizing down
+        comboBox2.setOnAction(event -> resizeImage(comboBox2.getValue()));
+
+// Add listener to height slider for resizing
+        heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double newHeight = newValue.doubleValue();
+            double currentWidth = imageView.getFitWidth();
+            imageView.setFitHeight(newHeight);
+            imageView.setFitWidth(currentWidth); // Keep the width fixed
+        });
+
+// Add listener to width slider for resizing
+        widthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double newWidth = newValue.doubleValue();
+            double currentHeight = imageView.getFitHeight();
+            imageView.setFitWidth(newWidth);
+            imageView.setFitHeight(currentHeight); // Keep the height fixed
+        });
+
     }
 
+    // Method to resize the image based on the selected scale factor
+// Method to resize the image based on the selected scale factor
+    private void resizeImage(String selectedScale) {
+        double scaleFactor;
+
+        // Parse the selected scale factor if it's not null or empty
+        if (selectedScale != null && !selectedScale.isEmpty()) {
+            scaleFactor = parseScale(selectedScale);
+        } else {
+            scaleFactor = 1.0; // Default scale factor
+        }
+
+        if (scaleFactor == 1.0) {
+            // Reset image size to original dimensions
+            imageView.setFitWidth(-1);
+            imageView.setFitHeight(-1);
+        } else if (scaleFactor > 0 && imageView.getImage() != null) {
+            // Apply scaling based on the selected scale factor
+            if (scaleFactor > 1) {
+                // Scale up
+                resizeHeight(scaleFactor);
+            } else {
+                // Scale down
+                resizeWidth(scaleFactor);
+            }
+        } else {
+            System.err.println("Invalid scale factor or no image loaded.");
+        }
+    }
+    // Method to parse the scale value and return a double representing the scaling factor
+    private static double parseScale(String selectedScale) {
+        try {
+            // implementation: parse "2x" to 2.0, "0.5x" to 0.5, etc.
+            if (selectedScale.endsWith("x")) {
+                return Double.parseDouble(selectedScale.substring(0, selectedScale.length() - 1));
+            } else {
+                return 1.0; // Default scale if format is invalid
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing scale: " + selectedScale);
+            return 1.0; // Default scale if parsing fails
+        }
+    }
+    private void adjustHeight(double scaleFactor) {
+        if (imageView.getImage() != null) {
+            Image originalImage = imageView.getImage();
+            double newHeight = originalImage.getHeight() * scaleFactor;
+
+            // Set the new height
+            imageView.setFitHeight(newHeight);
+        } else {
+            System.err.println("No image loaded.");
+        }
+    }
+    // Method to resize the image based on the selected height scale factor
+    private void resizeHeight(double scaleFactor) {
+        if (imageView.getImage() != null) {
+            double currentHeight = imageView.getImage().getHeight();
+            double newHeight = currentHeight * (1 + scaleFactor / 100.0);
+            imageView.setFitHeight(newHeight);
+        }
+    }
+
+// Method to resize the image based on the selected width scale factor
+private void resizeWidth(double scaleFactor) {
+    if (imageView.getImage() != null) {
+        double currentWidth = imageView.getImage().getWidth();
+        double newWidth = currentWidth * (1 + scaleFactor / 100.0);
+        imageView.setFitWidth(newWidth);
+    }
+}
     @FXML
     private void onDragOver(DragEvent event) {
         if (event.getGestureSource() != imageView && event.getDragboard().hasFiles()) {
