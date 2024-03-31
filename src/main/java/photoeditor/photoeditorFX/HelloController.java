@@ -30,9 +30,6 @@ public class HelloController {
     @FXML
     private ComboBox<String> comboBox1;
     @FXML
-    private ComboBox<String> comboBox2;
-    @FXML
-
     private ImageView imageView;
     @FXML
     private Slider brightnessSlider;
@@ -56,6 +53,11 @@ public class HelloController {
     public void initialize() {
 
         ObservableList<String> options1 = FXCollections.observableArrayList(
+
+                "0.0625x",
+                "0.125x",
+                "0.25x",
+                "0.5x",
                 "1x",
                 "2x",
                 "3x",
@@ -64,20 +66,12 @@ public class HelloController {
         );
         comboBox1.setItems(options1);
 
-        ObservableList<String> options2 = FXCollections.observableArrayList(
-                "1x",
-                "0.5x",
-                "0.25x",
-                "0.125x",
-                "0.0625x"
-        );
-        comboBox2.setItems(options2);
-
         //Creating object that'll save image with applied effect, dimensions don't affect final result.
         WritableImage wim = new WritableImage( 800, 600);
 
         //class that's used to set image effects
         ColorAdjust colorAdjust = new ColorAdjust();
+
 
 
         //listener for each color effect slider to set strength of effect on image
@@ -106,11 +100,21 @@ public class HelloController {
             photo.isPhotoEdited();
         });
 
-        // Add listener to comboBox1 for resizing up
-        comboBox1.setOnAction(event -> resizeImage(comboBox1.getValue()));
+        // Add listener to comboBox1 for resizing up and down from 0.0625 to 5x
+        comboBox1.setOnAction(event -> {
+                double scale = parseScale(comboBox1.getValue());
 
-        // Add listener to comboBox2 for resizing down
-        comboBox2.setOnAction(event -> resizeImage(comboBox2.getValue()));
+                if( scale != 1.0) {
+                imageView.setFitHeight(scale * 800);
+                imageView.setFitWidth(scale * 600);
+                }else{
+                imageView.setFitHeight(600);
+                imageView.setFitWidth(800);
+                }
+
+                });
+
+
 
 // Add listener to height slider for resizing
         heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -148,13 +152,10 @@ public class HelloController {
             imageView.setFitHeight(-1);
         } else if (scaleFactor > 0 && imageView.getImage() != null) {
             // Apply scaling based on the selected scale factor
-            if (scaleFactor > 1) {
                 // Scale up
                 resizeHeight(scaleFactor);
-            } else {
-                // Scale down
                 resizeWidth(scaleFactor);
-            }
+
         } else {
             System.err.println("Invalid scale factor or no image loaded.");
         }
@@ -176,6 +177,7 @@ public class HelloController {
     private void adjustHeight(double scaleFactor) {
         if (imageView.getImage() != null) {
             Image originalImage = imageView.getImage();
+
             double newHeight = originalImage.getHeight() * scaleFactor;
 
             // Set the new height
@@ -187,8 +189,8 @@ public class HelloController {
     // Method to resize the image based on the selected height scale factor
     private void resizeHeight(double scaleFactor) {
         if (imageView.getImage() != null) {
-            double currentHeight = imageView.getImage().getHeight();
-            double newHeight = currentHeight * (1 + scaleFactor / 100.0);
+            double currentHeight = imageView.getFitHeight();
+            double newHeight = currentHeight * (scaleFactor );
             imageView.setFitHeight(newHeight);
         }
     }
@@ -196,8 +198,8 @@ public class HelloController {
 // Method to resize the image based on the selected width scale factor
 private void resizeWidth(double scaleFactor) {
     if (imageView.getImage() != null) {
-        double currentWidth = imageView.getImage().getWidth();
-        double newWidth = currentWidth * (1 + scaleFactor / 100.0);
+        double currentWidth = imageView.getFitWidth();
+        double newWidth = currentWidth * (scaleFactor);
         imageView.setFitWidth(newWidth);
     }
 }
@@ -227,6 +229,7 @@ private void resizeWidth(double scaleFactor) {
 
                 //Connect Image to UserPhoto class
                 photo = new UserPhoto(directoryPath);
+
 
             } catch (Exception e) {
                 System.out.println("Error in image path");

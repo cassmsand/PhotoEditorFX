@@ -51,7 +51,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#applyNew" text="New"/>
+            <MenuItem mnemonicParsing="false" onAction="#applyNew" text="New" />
             <MenuItem mnemonicParsing="false" onAction="#applyOpen" text="Open..." />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#applySave" text="Save" />
@@ -117,20 +117,11 @@
             </Menu>
         <Menu mnemonicParsing="false" text="Resize">
           <items>
-                  <Menu mnemonicParsing="false" text="Increase Size">
+                  <Menu mnemonicParsing="false" text="Increase/Decrease size">
                      <items>
                         <MenuItem mnemonicParsing="false">
                            <graphic>
                               <ComboBox fx:id="comboBox1" prefWidth="150.0" promptText="Choose Size" />
-                           </graphic>
-                        </MenuItem>
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Decrease Size">
-                     <items>
-                        <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <ComboBox fx:id="comboBox2" prefWidth="150.0" promptText="Choose Size" />
                            </graphic>
                         </MenuItem>
                      </items>
