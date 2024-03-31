@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class HelloController {
     @FXML
@@ -100,19 +101,15 @@ public class HelloController {
             photo.isPhotoEdited();
         });
 
+        //need to keep track of scale value for height/width slider as well as the sliders.
+        AtomicReference<Double> scale = new AtomicReference<>((double) 0);
         // Add listener to comboBox1 for resizing up and down from 0.0625 to 5x
         comboBox1.setOnAction(event -> {
-                double scale = parseScale(comboBox1.getValue());
+                    scale.set(parseScale(comboBox1.getValue()));
 
+                    imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
+                    imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
 
-                if( scale != 1.0) {
-
-                    imageView.setFitHeight(scale * photo.getHeight());
-                    imageView.setFitWidth(scale * photo.getWidth());
-                }else{
-                    imageView.setFitHeight(photo.getHeight());
-                    imageView.setFitWidth(photo.getWidth());
-                }
 
                 });
 
@@ -120,18 +117,16 @@ public class HelloController {
 
 // Add listener to height slider for resizing
         heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            double newHeight = newValue.doubleValue();
-            double currentWidth = imageView.getFitWidth();
-            imageView.setFitHeight(newHeight);
-            imageView.setFitWidth(currentWidth); // Keep the width fixed
+            imageView.setPreserveRatio(false);
+            imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
+             // Keep the width fixed
         });
 
 // Add listener to width slider for resizing
         widthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            double newWidth = newValue.doubleValue();
-            double currentHeight = imageView.getFitHeight();
-            imageView.setFitWidth(newWidth);
-            imageView.setFitHeight(currentHeight); // Keep the height fixed
+            imageView.setPreserveRatio(false);
+            imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
+             // Keep the height fixed
         });
 
     }
