@@ -136,32 +136,6 @@ public class HelloController {
 
     }
 
-    // Method to resize the image based on the selected scale factor
-// Method to resize the image based on the selected scale factor
-    private void resizeImage(String selectedScale) {
-        double scaleFactor;
-
-        // Parse the selected scale factor if it's not null or empty
-        if (selectedScale != null && !selectedScale.isEmpty()) {
-            scaleFactor = parseScale(selectedScale);
-        } else {
-            scaleFactor = 1.0; // Default scale factor
-        }
-
-        if (scaleFactor == 1.0) {
-            // Reset image size to original dimensions
-            imageView.setFitWidth(-1);
-            imageView.setFitHeight(-1);
-        } else if (scaleFactor > 0 && imageView.getImage() != null) {
-            // Apply scaling based on the selected scale factor
-                // Scale up
-                resizeHeight(scaleFactor);
-                resizeWidth(scaleFactor);
-
-        } else {
-            System.err.println("Invalid scale factor or no image loaded.");
-        }
-    }
     // Method to parse the scale value and return a double representing the scaling factor
     private static double parseScale(String selectedScale) {
         try {
@@ -176,35 +150,7 @@ public class HelloController {
             return 1.0; // Default scale if parsing fails
         }
     }
-    private void adjustHeight(double scaleFactor) {
-        if (imageView.getImage() != null) {
-            Image originalImage = imageView.getImage();
 
-            double newHeight = originalImage.getHeight() * scaleFactor;
-
-            // Set the new height
-            imageView.setFitHeight(newHeight);
-        } else {
-            System.err.println("No image loaded.");
-        }
-    }
-    // Method to resize the image based on the selected height scale factor
-    private void resizeHeight(double scaleFactor) {
-        if (imageView.getImage() != null) {
-            double currentHeight = imageView.getFitHeight();
-            double newHeight = currentHeight * (scaleFactor );
-            imageView.setFitHeight(newHeight);
-        }
-    }
-
-// Method to resize the image based on the selected width scale factor
-private void resizeWidth(double scaleFactor) {
-    if (imageView.getImage() != null) {
-        double currentWidth = imageView.getFitWidth();
-        double newWidth = currentWidth * (scaleFactor);
-        imageView.setFitWidth(newWidth);
-    }
-}
     @FXML
     private void onDragOver(DragEvent event) {
         if (event.getGestureSource() != imageView && event.getDragboard().hasFiles()) {
