@@ -64,7 +64,7 @@
           <items>
             <MenuItem fx:id="applyblackandwhite" mnemonicParsing="false" onAction="#applyBlackAndWhite" text="Black and White" />
             <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Grayscale" />
+                  <MenuItem mnemonicParsing="false" onAction="#applyGrayscale" text="Grayscale" />
                   <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Red" />
                   <SeparatorMenuItem mnemonicParsing="false" />

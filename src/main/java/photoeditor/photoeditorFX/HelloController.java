@@ -44,6 +44,7 @@ public class HelloController {
     private Slider contrastSlider;
     @FXML
     private UserPhoto photo;
+    private UserPhoto originalPhoto; // Original copy of photo
     @FXML      // added for heightSlider
     private Slider heightSlider;
     @FXML     // added for widthSlider
@@ -167,6 +168,7 @@ public class HelloController {
 
                     //Connect Image to UserPhoto class
                     photo = new UserPhoto(directoryPath);
+                    originalPhoto = new UserPhoto(directoryPath);
 
                     //setting aspect ratio of imageview to be the same as photo
                     imageView.setFitHeight(photo.getHeight());
@@ -337,11 +339,12 @@ public class HelloController {
     }
 
     @FXML
-    private void applyBlackAndWhite() {
-        // Create Black and white filter object and apply filter
-        BlackAndWhiteFilter filter = new BlackAndWhiteFilter(photo);
+    public void applyBlackAndWhite(javafx.event.ActionEvent actionEvent) {
+        // Create Grayscale filter object and apply filter
+        BlackAndWhiteFilter filter = new BlackAndWhiteFilter(originalPhoto);
         UserPhoto updatedPhoto = filter.applyFilter();
 
+        //If there is an updated photo
         if (updatedPhoto != null) {
             // Get the updated image from the UserPhoto object
             Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
@@ -350,7 +353,27 @@ public class HelloController {
             imageView.setImage(updatedImage);
         } else {
             // Handle the case where the filter was not successful
-            System.out.println("Filter was not successful.");
+            popUpBox("Error - filter could not be applied");
+        }
+
+    }
+
+    @FXML
+    private void applyGrayscale() {
+        // Create Grayscale filter object and apply filter
+        GrayscaleFilter filter = new GrayscaleFilter(photo);
+        UserPhoto updatedPhoto = filter.applyFilter();
+
+        //If there is an updated photo
+        if (updatedPhoto != null) {
+            // Get the updated image from the UserPhoto object
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+
+            // Set the updated image to the ImageView
+            imageView.setImage(updatedImage);
+        } else {
+            // Handle the case where the filter was not successful
+            popUpBox("Error - filter could not be applied");
         }
 
     }
@@ -392,6 +415,7 @@ public class HelloController {
             try {
                 //Connect Image to UserPhoto class
                 photo = new UserPhoto(file.getAbsolutePath());
+                originalPhoto = new UserPhoto(file.getAbsolutePath());
 
             } catch (Exception e) {
                 popUpBox("Error - could not upload photo");
@@ -441,5 +465,6 @@ public class HelloController {
         label.setVerticalAlignment(SwingConstants.CENTER);
         popUpFrame.add(label, BorderLayout.CENTER);
     }
+
 }
 

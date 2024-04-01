@@ -3,10 +3,9 @@ package photoeditor.photoeditorFX;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class BlackAndWhiteFilter extends Filter{
-    private static final int BLACK_THRESHOLD = 128; // Threshold for black and white conversion
+public class GrayscaleFilter extends Filter{
 
-    public BlackAndWhiteFilter(UserPhoto photo) {
+    public GrayscaleFilter(UserPhoto photo) {
         super(photo);
     }
 
@@ -20,9 +19,9 @@ public class BlackAndWhiteFilter extends Filter{
             BufferedImage result = new BufferedImage(
                     image.getWidth(),
                     image.getHeight(),
-                    BufferedImage.TYPE_BYTE_BINARY);
+                    BufferedImage.TYPE_BYTE_GRAY); // Set image type to grayscale
 
-            // Convert the original image to black and white
+            // Convert the original image to grayscale
             Graphics2D graphic = result.createGraphics();
             graphic.drawImage(image, 0, 0, Color.WHITE, null);
             graphic.dispose();
@@ -37,4 +36,3 @@ public class BlackAndWhiteFilter extends Filter{
         }
     }
 }
-
