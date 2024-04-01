@@ -214,7 +214,6 @@ public class HelloController {
                         deleteImage(); //Deletes photo
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a file
                         displayFile(selectedFile); //displays the file
-                        dragAndDropLabel.setVisible(false); //hide label
                     });
                 }
             });
@@ -228,7 +227,6 @@ public class HelloController {
                     Platform.runLater(() -> {
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
                         displayFile(selectedFile); //Displays the file
-                        dragAndDropLabel.setVisible(false); //hide label
                     });
                 }
             });
@@ -273,7 +271,6 @@ public class HelloController {
             });
 
             clearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            dragAndDropLabel.setVisible(true); //Unhidden label
         }
     }
 
@@ -352,6 +349,7 @@ public class HelloController {
         if (photo != null) {
             photo = null;
         }
+        dragAndDropLabel.setVisible(true); //Unhidden label
     }
 
     //Select a file from the fileChooser
@@ -375,8 +373,7 @@ public class HelloController {
             // You can perform further operations with the selected file here
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
-
-
+            dragAndDropLabel.setVisible(false);
             //Get the file path from the imagePath
             try {
                 //Connect Image to UserPhoto class
