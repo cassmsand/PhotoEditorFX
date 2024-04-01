@@ -26,7 +26,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class HelloController {
@@ -45,13 +44,12 @@ public class HelloController {
     private Slider contrastSlider;
     @FXML
     private UserPhoto photo;
-    @FXML      // added for heightSlider
-    private Slider heightSlider;
-    @FXML     // added for widthSlider
-    private Slider widthSlider;
+    @FXML
+    private Slider heightSlider;  // added for heightSlider
+    @FXML
+    private Slider widthSlider; // added for widthSlider
     private WritableImage wim;
-    //added for the quit class
-    private static Stage mainStage;
+    private static Stage mainStage;     //added for the quit class
 
 
     public void initialize() {
@@ -77,27 +75,35 @@ public class HelloController {
 
         //listener for each color effect slider to set strength of effect on image
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            colorAdjust.setBrightness(brightnessSlider.getValue());
-            imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited(true);
+            if (photo != null) {
+                colorAdjust.setBrightness(brightnessSlider.getValue());
+                imageView.setEffect(colorAdjust);
+                photo.isPhotoEdited(true);
+            }
         });
 
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            colorAdjust.setContrast(contrastSlider.getValue());
-            imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited(true);
+            if (photo != null) {
+                colorAdjust.setContrast(contrastSlider.getValue());
+                imageView.setEffect(colorAdjust);
+                photo.isPhotoEdited(true);
+            }
         });
 
         hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            colorAdjust.setHue(hueSlider.getValue());
-            imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited(true);
+            if (photo != null) {
+                colorAdjust.setHue(hueSlider.getValue());
+                imageView.setEffect(colorAdjust);
+                photo.isPhotoEdited(true);
+            }
         });
 
         saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            colorAdjust.setSaturation(saturationSlider.getValue());
-            imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited(true);
+            if (photo != null) {
+                colorAdjust.setSaturation(saturationSlider.getValue());
+                imageView.setEffect(colorAdjust);
+                photo.isPhotoEdited(true);
+            }
         });
 
         //need to keep track of scale value for height/width slider as well as the sliders.
@@ -113,18 +119,22 @@ public class HelloController {
 
         // Add listener to height slider for resizing
         heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            imageView.setPreserveRatio(false);
-            imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
-             // Keep the width fixed
-            photo.isPhotoEdited(true);
+            if (photo != null) {
+                imageView.setPreserveRatio(false);
+                imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
+                // Keep the width fixed
+                photo.isPhotoEdited(true);
+            }
         });
 
         // Add listener to width slider for resizing
         widthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            imageView.setPreserveRatio(false);
-            imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
-             // Keep the height fixed
-            photo.isPhotoEdited(true);
+            if (photo != null) {
+                imageView.setPreserveRatio(false);
+                imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
+                // Keep the height fixed
+                photo.isPhotoEdited(true);
+            }
         });
     }
 
@@ -156,6 +166,8 @@ public class HelloController {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasFiles()) {
+            resetSliders(); //reset sliders
+            resetSize(); //reset size
             success = true;
             String imagePath = db.getFiles().get(0).toURI().toString();
 
@@ -237,7 +249,7 @@ public class HelloController {
             openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         } else {
-            File selectedFile = selectFile(imageView.getScene().getWindow()); //Select a new file
+            File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a new file
             displayFile(selectedFile); //Display the file
         }
     }
@@ -273,13 +285,10 @@ public class HelloController {
                 }
             });
             // Reset all sliders to their default positions
-            brightnessSlider.setValue(0);
-            contrastSlider.setValue(0);
-            hueSlider.setValue(0);
-            saturationSlider.setValue(0);
+            resetSliders();
 
             // Reset the ComboBox to its default value
-            comboBox1.setValue("1x");
+            resetSize();
 
             // Reset the fit height and width of the image view to the original dimensions of application
             imageView.setFitHeight(600);
@@ -305,13 +314,10 @@ public class HelloController {
                     resetFrame.dispose(); //Clear frame
                     Platform.runLater(() -> {
                         // Reset all sliders to their default positions
-                        brightnessSlider.setValue(0);
-                        contrastSlider.setValue(0);
-                        hueSlider.setValue(0);
-                        saturationSlider.setValue(0);
+                        resetSliders();
 
                         // Reset the ComboBox to its default value
-                        comboBox1.setValue("1x");
+                        resetSize();
 
                         // Reset the fit height and width of the image view to the original dimensions of application
                         imageView.setFitHeight(photo.getHeight());
@@ -403,120 +409,130 @@ public class HelloController {
 
     @FXML
     public void applyOriginal() {
-        // apply original
-        Image originalImage = SwingFXUtils.toFXImage(photo.getImage(), null);
-        imageView.setImage(originalImage);
+        if (photo != null) {
+            // apply original
+            Image originalImage = SwingFXUtils.toFXImage(photo.getImage(), null);
+            imageView.setImage(originalImage);
+        }
     }
 
 
     @FXML
     public void applyBlackAndWhite() {
-        //Get copy of photo
-        BufferedImage copyOfPhoto = createCopy(photo);
+        if (photo != null) {
+            //Get copy of photo
+            BufferedImage copyOfPhoto = createCopy(photo);
 
-        BlackAndWhiteFilter filter = new BlackAndWhiteFilter(copyOfPhoto);
-        BufferedImage updatedPhoto = filter.applyFilter();
+            BlackAndWhiteFilter filter = new BlackAndWhiteFilter(copyOfPhoto);
+            BufferedImage updatedPhoto = filter.applyFilter();
 
-        //If there is an updated photo
-        if (updatedPhoto != null) {
-            // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
+            //If there is an updated photo
+            if (updatedPhoto != null) {
+                // Get the updated image from the UserPhoto object
+                Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
-            // Set the updated image to the ImageView
-            imageView.setImage(updatedImage);
-        } else {
-            // Handle the case where the filter was not successful
-            popUpBox("Error - filter could not be applied");
+                // Set the updated image to the ImageView
+                imageView.setImage(updatedImage);
+            } else {
+                // Handle the case where the filter was not successful
+                popUpBox("Error - filter could not be applied");
+            }
         }
-
     }
 
     @FXML
     private void applyGrayscale() {
-        BufferedImage copyOfPhoto = createCopy(photo);
+        if (photo != null) {
+            BufferedImage copyOfPhoto = createCopy(photo);
 
-        // Create Grayscale filter object and apply filter
-        GrayscaleFilter filter = new GrayscaleFilter(copyOfPhoto);
-        BufferedImage updatedPhoto = filter.applyFilter();
+            // Create Grayscale filter object and apply filter
+            GrayscaleFilter filter = new GrayscaleFilter(copyOfPhoto);
+            BufferedImage updatedPhoto = filter.applyFilter();
 
-        //If there is an updated photo
-        if (updatedPhoto != null) {
-            // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
+            //If there is an updated photo
+            if (updatedPhoto != null) {
+                // Get the updated image from the UserPhoto object
+                Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
-            // Set the updated image to the ImageView
-            imageView.setImage(updatedImage);
-            photo.isPhotoEdited(true);
-        } else {
-            // Handle the case where the filter was not successful
-            popUpBox("Error - filter could not be applied");
+                // Set the updated image to the ImageView
+                imageView.setImage(updatedImage);
+                photo.isPhotoEdited(true);
+            } else {
+                // Handle the case where the filter was not successful
+                popUpBox("Error - filter could not be applied");
+            }
         }
-
     }
 
     @FXML
     public void applyRed() {
-        BufferedImage copyOfPhoto = createCopy(photo);
+        if (photo != null) {
+            BufferedImage copyOfPhoto = createCopy(photo);
 
-        // Create red filter object and apply filter
-        RedFilter filter = new RedFilter(copyOfPhoto);
-        BufferedImage updatedPhoto = filter.applyFilter();
+            // Create red filter object and apply filter
+            RedFilter filter = new RedFilter(copyOfPhoto);
+            BufferedImage updatedPhoto = filter.applyFilter();
 
-        //If there is an updated photo
-        if (updatedPhoto != null) {
-            // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
+            //If there is an updated photo
+            if (updatedPhoto != null) {
+                // Get the updated image from the UserPhoto object
+                Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
-            // Set the updated image to the ImageView
-            imageView.setImage(updatedImage);
-            photo.isPhotoEdited(true);
-        } else {
-            // Handle the case where the filter was not successful
-            popUpBox("Error - filter could not be applied");
+                // Set the updated image to the ImageView
+                imageView.setImage(updatedImage);
+                photo.isPhotoEdited(true);
+            } else {
+                // Handle the case where the filter was not successful
+                popUpBox("Error - filter could not be applied");
+            }
         }
     }
 
     @FXML
     public void applyBlue() {
-        BufferedImage copyOfPhoto = createCopy(photo);
+        if (photo != null) {
+            BufferedImage copyOfPhoto = createCopy(photo);
 
-        // Create red filter object and apply filter
-        BlueFilter filter = new BlueFilter(copyOfPhoto);
-        BufferedImage updatedPhoto = filter.applyFilter();
+            // Create red filter object and apply filter
+            BlueFilter filter = new BlueFilter(copyOfPhoto);
+            BufferedImage updatedPhoto = filter.applyFilter();
 
-        //If there is an updated photo
-        if (updatedPhoto != null) {
-            // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
+            //If there is an updated photo
+            if (updatedPhoto != null) {
+                // Get the updated image from the UserPhoto object
+                Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
-            // Set the updated image to the ImageView
-            imageView.setImage(updatedImage);
-            photo.isPhotoEdited(true);
-        } else {
-            // Handle the case where the filter was not successful
-            popUpBox("Error - filter could not be applied");
+                // Set the updated image to the ImageView
+                imageView.setImage(updatedImage);
+                photo.isPhotoEdited(true);
+            } else {
+                // Handle the case where the filter was not successful
+                popUpBox("Error - filter could not be applied");
+            }
         }
     }
 
     @FXML
     public void applyGreen() {
-        BufferedImage copyOfPhoto = createCopy(photo);
+        if (photo != null) {
+            BufferedImage copyOfPhoto = createCopy(photo);
 
-        // Create red filter object and apply filter
-        GreenFilter filter = new GreenFilter(copyOfPhoto);
-        BufferedImage updatedPhoto = filter.applyFilter();
+            // Create red filter object and apply filter
+            GreenFilter filter = new GreenFilter(copyOfPhoto);
+            BufferedImage updatedPhoto = filter.applyFilter();
 
-        //If there is an updated photo
-        if (updatedPhoto != null) {
-            // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
+            //If there is an updated photo
+            if (updatedPhoto != null) {
+                // Get the updated image from the UserPhoto object
+                Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
-            // Set the updated image to the ImageView
-            imageView.setImage(updatedImage);
-            photo.isPhotoEdited(true);
-        } else {
-            // Handle the case where the filter was not successful
-            popUpBox("Error - filter could not be applied");
+                // Set the updated image to the ImageView
+                imageView.setImage(updatedImage);
+                photo.isPhotoEdited(true);
+            } else {
+                // Handle the case where the filter was not successful
+                popUpBox("Error - filter could not be applied");
+            }
         }
     }
 
@@ -620,6 +636,19 @@ public class HelloController {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
         popUpFrame.add(label, BorderLayout.CENTER);
+    }
+
+    private void resetSliders() {
+        // Reset all sliders to their default positions
+        brightnessSlider.setValue(0);
+        contrastSlider.setValue(0);
+        hueSlider.setValue(0);
+        saturationSlider.setValue(0);
+    }
+
+    private void resetSize() {
+        // Reset the ComboBox to its default value
+        comboBox1.setValue("1x");
     }
 
 }
