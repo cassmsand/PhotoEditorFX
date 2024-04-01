@@ -196,11 +196,11 @@ public class HelloController {
     }
 
     @FXML
-    public void applyNew() {
+    public void applyClear() {
         if (photo != null) {
             // Create JFrame quitFrame object and return yes/no buttons to assign actions
-            JFrame newFrame = new JFrame();
-            JButton[] buttons = yesNoBox(newFrame, "Do you want to save your photo?");
+            JFrame clearFrame = new JFrame();
+            JButton[] buttons = yesNoBox(clearFrame, "Do you want to save your photo?");
             JButton noButton = buttons[0];
             JButton yesButton = buttons[1];
 
@@ -208,7 +208,7 @@ public class HelloController {
             yesButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    newFrame.dispose(); //Clear frame
+                    clearFrame.dispose(); //Clear frame
                     Platform.runLater(() -> {
                         applySave(); //Save photo
                         deleteImage(); //Delete photo object and update the imageView
@@ -220,12 +220,12 @@ public class HelloController {
             noButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    newFrame.dispose(); //Clear frame
+                    clearFrame.dispose(); //Clear frame
                     deleteImage(); //Delete photo object and update the imageView
                 }
             });
 
-            newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            clearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             dragAndDropLabel.setVisible(true); //Unhidden label
         }
     }
