@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -153,12 +154,15 @@
     </MenuBar>
     <AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="116.0" layoutY="164.0" style="&#10;" text="Drag and drop photo here..." textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" AnchorPane.bottomAnchor="164.5" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="164.0">
+        <Label fx:id="dragAndDropLabel" alignment="CENTER" layoutX="116.0" layoutY="164.0" style="&#10;" text="Drag and drop photo here..." textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" AnchorPane.bottomAnchor="164.5" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="164.0">
           <font>
             <Font name="Optima Bold" size="36.0" />
           </font>
         </Label>
-            <ImageView fx:id="imageView" fitHeight="600.0" fitWidth="800.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ImageView fx:id="imageView" fitHeight="600.0" fitWidth="800.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis></ImageView>
             <SplitPane dividerPositions="0.5" prefHeight="373.0" prefWidth="640.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -174,6 +178,9 @@
               </items>
             </SplitPane>
       </children>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
     </AnchorPane>
   </children>
 </VBox>

@@ -5,7 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -14,11 +16,13 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +32,7 @@ import java.net.URISyntaxException;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class HelloController {
+    public Label dragAndDropLabel;
     @FXML
     private ComboBox<String> comboBox1;
     @FXML
@@ -217,6 +222,7 @@ private void resizeWidth(double scaleFactor) {
             String imagePath = db.getFiles().get(0).toURI().toString();
             Image image = new Image(imagePath);
             imageView.setImage(image);
+            dragAndDropLabel.setVisible(false); //Hide main label
 
             //Get the file path from the imagePath
             try {
@@ -283,6 +289,7 @@ private void resizeWidth(double scaleFactor) {
             });
 
             newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            dragAndDropLabel.setVisible(true); //Unhidden label
         }
     }
 
