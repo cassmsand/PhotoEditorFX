@@ -64,6 +64,8 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Apply Filter">
           <items>
+              <MenuItem mnemonicParsing="false" onAction="#applyOriginal" text="Original" />
+              <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="applyblackandwhite" mnemonicParsing="false" onAction="#applyBlackAndWhite" text="Black and White" />
             <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#applyGrayscale" text="Grayscale" />

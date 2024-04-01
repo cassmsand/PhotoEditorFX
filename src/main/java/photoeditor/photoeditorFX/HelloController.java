@@ -293,23 +293,44 @@ public class HelloController {
     //Reset photo to original Image
     public void applyReset() {
         if (photo != null) {
-            //Reset settings
-            // Reset all sliders to their default positions
-            brightnessSlider.setValue(0);
-            contrastSlider.setValue(0);
-            hueSlider.setValue(0);
-            saturationSlider.setValue(0);
+            JFrame resetFrame = new JFrame();
+            JButton[] buttons = yesNoBox(resetFrame, "Revert back to original photo?");
+            JButton noButton = buttons[0];
+            JButton yesButton = buttons[1];
 
-            // Reset the ComboBox to its default value
-            comboBox1.setValue("1x");
+            // Add ActionListener to the Yes button
+            yesButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    resetFrame.dispose(); //Clear frame
+                    Platform.runLater(() -> {
+                        // Reset all sliders to their default positions
+                        brightnessSlider.setValue(0);
+                        contrastSlider.setValue(0);
+                        hueSlider.setValue(0);
+                        saturationSlider.setValue(0);
 
-            // Reset the fit height and width of the image view to the original dimensions of application
-            imageView.setFitHeight(photo.getHeight());
-            imageView.setFitWidth(photo.getWidth());
+                        // Reset the ComboBox to its default value
+                        comboBox1.setValue("1x");
 
-            // apply reset
-            Image originalImage = SwingFXUtils.toFXImage(photo.getImage(), null);
-            imageView.setImage(originalImage);
+                        // Reset the fit height and width of the image view to the original dimensions of application
+                        imageView.setFitHeight(photo.getHeight());
+                        imageView.setFitWidth(photo.getWidth());
+
+                        // apply reset
+                        Image originalImage = SwingFXUtils.toFXImage(photo.getImage(), null);
+                        imageView.setImage(originalImage);
+                    });
+                }
+            });
+
+            // Add ActionListener to the No button
+            noButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    resetFrame.dispose(); //Clear frame
+                }
+            });
         } else {
             popUpBox("Error - no photo uploaded");
         }
@@ -379,6 +400,14 @@ public class HelloController {
         });
         quitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    @FXML
+    public void applyOriginal() {
+        // apply original
+        Image originalImage = SwingFXUtils.toFXImage(photo.getImage(), null);
+        imageView.setImage(originalImage);
+    }
+
 
     @FXML
     public void applyBlackAndWhite() {
@@ -594,4 +623,3 @@ public class HelloController {
     }
 
 }
-
