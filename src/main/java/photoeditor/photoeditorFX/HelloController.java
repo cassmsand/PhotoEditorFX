@@ -55,7 +55,6 @@ public class HelloController {
     public void initialize() {
 
         ObservableList<String> options1 = FXCollections.observableArrayList(
-
                 "0.0625x",
                 "0.125x",
                 "0.25x",
@@ -74,14 +73,11 @@ public class HelloController {
         //class that's used to set image effects
         ColorAdjust colorAdjust = new ColorAdjust();
 
-
-
         //listener for each color effect slider to set strength of effect on image
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setBrightness(brightnessSlider.getValue());
             imageView.setEffect(colorAdjust);
             photo.isPhotoEdited();
-
         });
 
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
@@ -159,7 +155,6 @@ public class HelloController {
             String imagePath = db.getFiles().get(0).toURI().toString();
 
             if (typeChecker(imagePath) == true) {
-
                 Image image = new Image(imagePath);
                 imageView.setImage(image);
                 dragAndDropLabel.setVisible(false);
@@ -240,7 +235,6 @@ public class HelloController {
                     });
                 }
             });
-
             openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         } else {
@@ -279,7 +273,6 @@ public class HelloController {
                     deleteImage(); //Delete photo object and update the imageView
                 }
             });
-
             clearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
     }
@@ -345,7 +338,6 @@ public class HelloController {
                 quitFrame.dispose(); //Clear frame
             }
         });
-
         quitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -371,9 +363,7 @@ public class HelloController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-
         return fileChooser.showOpenDialog(window);
-
     }
 
     //Display a file in the imageView
