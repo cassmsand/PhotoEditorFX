@@ -22,3 +22,16 @@ How does one run the application?
 
 To run the application, go to src > main > java > photoeditor.photoeditorFX > HelloApplication then click the run button.
 The project will compile and then start the application.
+
+Each functional requirement.
+
+
+Each non-functional requirement. 
+
+1. Quality. Our application ensures quality as it works as intended, has variety of options for photo editing (filters, color changes, size changes,saving edited photo)
+
+2. Extensibility. Our application shows Extensibility by our abstract Filter class that allows us to create new filters as needed. We also have well documented comments for methods/fields that may not make sense from a glance which should make debugging errorss a simpler process if needed in the future.
+
+3. Performance/response time. Our application shows great performance/response time with user actions and processes edits efficiently. Saving photos/loading in photos takes no time to work.
+
+4. Reliability. Our application is shown to be reliable by every option in our photo editing application working as intended and extensive bug testing/bug fixing.
