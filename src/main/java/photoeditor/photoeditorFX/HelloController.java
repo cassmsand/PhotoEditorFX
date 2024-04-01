@@ -339,7 +339,7 @@ public class HelloController {
     }
 
     @FXML
-    public void applyBlackAndWhite(javafx.event.ActionEvent actionEvent) {
+    public void applyBlackAndWhite() {
         // Create Grayscale filter object and apply filter
         BlackAndWhiteFilter filter = new BlackAndWhiteFilter(originalPhoto);
         UserPhoto updatedPhoto = filter.applyFilter();
@@ -361,7 +361,7 @@ public class HelloController {
     @FXML
     private void applyGrayscale() {
         // Create Grayscale filter object and apply filter
-        GrayscaleFilter filter = new GrayscaleFilter(photo);
+        GrayscaleFilter filter = new GrayscaleFilter(originalPhoto);
         UserPhoto updatedPhoto = filter.applyFilter();
 
         //If there is an updated photo
@@ -378,6 +378,46 @@ public class HelloController {
 
     }
 
+    /*
+    @FXML
+    public void applyRed() {
+        // Create red filter object and apply filter
+        RedFilter filter = new RedFilter(originalPhoto);
+        UserPhoto updatedPhoto = filter.applyFilter();
+
+        //If there is an updated photo
+        if (updatedPhoto != null) {
+            // Get the updated image from the UserPhoto object
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+
+            // Set the updated image to the ImageView
+            imageView.setImage(updatedImage);
+        } else {
+            // Handle the case where the filter was not successful
+            popUpBox("Error - filter could not be applied");
+        }
+    }
+
+    @FXML
+    public void applyBlue() {
+        // Create red filter object and apply filter
+        BlueFilter filter = new BlueFilter(originalPhoto);
+        UserPhoto updatedPhoto = filter.applyFilter();
+
+        //If there is an updated photo
+        if (updatedPhoto != null) {
+            // Get the updated image from the UserPhoto object
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+
+            // Set the updated image to the ImageView
+            imageView.setImage(updatedImage);
+        } else {
+            // Handle the case where the filter was not successful
+            popUpBox("Error - filter could not be applied");
+        }
+    }
+
+     */
 
 
     // Deletes the photo object and clears the imageView

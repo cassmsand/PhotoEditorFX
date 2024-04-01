@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class BlackAndWhiteFilter extends Filter{
-    private static final int BLACK_THRESHOLD = 128; // Threshold for black and white conversion
 
     public BlackAndWhiteFilter(UserPhoto photo) {
         super(photo);
