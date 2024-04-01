@@ -1,11 +1,10 @@
 package photoeditor.photoeditorFX;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class RedFilter extends Filter {
+public class GreenFilter extends Filter {
 
-    public RedFilter(BufferedImage photo) {
+    public GreenFilter(BufferedImage photo) {
         super(photo);
     }
 
@@ -24,9 +23,9 @@ public class RedFilter extends Filter {
                     int pixelValue = image.getRGB(x, y);
 
                     int alpha = (pixelValue >> 24) & 0xff;
-                    int redComponent = (pixelValue >> 16) & 0xff;
+                    int greenComponent = (pixelValue >> 8) & 0xff;
 
-                    pixelValue = (alpha << 24) | redComponent << 16 | (0  << 8) | 0;
+                    pixelValue = (alpha << 24) | (0 << 16) | (greenComponent << 8) | 0;
 
                     image.setRGB(x, y, pixelValue);
                 }

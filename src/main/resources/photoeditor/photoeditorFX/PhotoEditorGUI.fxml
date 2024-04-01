@@ -66,11 +66,11 @@
             <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#applyGrayscale" text="Grayscale" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Red" />
+            <MenuItem mnemonicParsing="false" onAction="#applyRed" text="Red" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Blue" />
+            <MenuItem mnemonicParsing="false" onAction="#applyBlue" text="Blue" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Green" />
+                  <MenuItem mnemonicParsing="false" onAction="#applyGreen" text="Green" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Adjust Color">

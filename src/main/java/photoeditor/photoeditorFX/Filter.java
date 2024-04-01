@@ -1,16 +1,17 @@
 package photoeditor.photoeditorFX;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.attribute.UserPrincipal;
 
 public abstract class Filter  {
-    private UserPhoto photo;
+    private BufferedImage photo;
     private int intensity;
 
-    public Filter(UserPhoto photo) {
+    public Filter(BufferedImage photo) {
         this.photo = photo;
     }
 
-    public UserPhoto getPhoto() {
+    public BufferedImage getPhoto() {
         return photo;
     }
 
@@ -22,5 +23,5 @@ public abstract class Filter  {
         return intensity;
     }
 
-    public abstract UserPhoto applyFilter();
+    public abstract BufferedImage applyFilter();
 }

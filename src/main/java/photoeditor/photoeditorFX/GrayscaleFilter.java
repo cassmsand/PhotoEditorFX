@@ -5,16 +5,15 @@ import java.awt.image.BufferedImage;
 
 public class GrayscaleFilter extends Filter{
 
-    public GrayscaleFilter(UserPhoto photo) {
+    public GrayscaleFilter(BufferedImage photo) {
         super(photo);
     }
 
     @Override
-    public UserPhoto applyFilter() {
+    public BufferedImage applyFilter() {
         //applying filter was successful
-        UserPhoto photo = getPhoto();
-        if (photo != null) {
-            BufferedImage image = photo.getImage();
+        BufferedImage image = getPhoto();
+        if (image != null) {
 
             BufferedImage result = new BufferedImage(
                     image.getWidth(),
@@ -26,10 +25,7 @@ public class GrayscaleFilter extends Filter{
             graphic.drawImage(image, 0, 0, Color.WHITE, null);
             graphic.dispose();
 
-            // Update the UserPhoto object with the updated BufferedImage
-            photo.setImage(result);
-
-            return photo;
+            return result;
         } else {
             //FILTER WAS NOT SUCCESSFUL
             return null;

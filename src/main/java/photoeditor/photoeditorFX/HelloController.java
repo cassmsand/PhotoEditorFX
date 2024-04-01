@@ -44,7 +44,6 @@ public class HelloController {
     private Slider contrastSlider;
     @FXML
     private UserPhoto photo;
-    private UserPhoto originalPhoto; // Original copy of photo
     @FXML      // added for heightSlider
     private Slider heightSlider;
     @FXML     // added for widthSlider
@@ -168,7 +167,6 @@ public class HelloController {
 
                     //Connect Image to UserPhoto class
                     photo = new UserPhoto(directoryPath);
-                    originalPhoto = new UserPhoto(directoryPath);
 
                     //setting aspect ratio of imageview to be the same as photo
                     imageView.setFitHeight(photo.getHeight());
@@ -340,14 +338,16 @@ public class HelloController {
 
     @FXML
     public void applyBlackAndWhite() {
-        // Create Grayscale filter object and apply filter
-        BlackAndWhiteFilter filter = new BlackAndWhiteFilter(originalPhoto);
-        UserPhoto updatedPhoto = filter.applyFilter();
+        //Get copy of photo
+        BufferedImage copyOfPhoto = createCopy(photo);
+
+        BlackAndWhiteFilter filter = new BlackAndWhiteFilter(copyOfPhoto);
+        BufferedImage updatedPhoto = filter.applyFilter();
 
         //If there is an updated photo
         if (updatedPhoto != null) {
             // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
@@ -360,14 +360,16 @@ public class HelloController {
 
     @FXML
     private void applyGrayscale() {
+        BufferedImage copyOfPhoto = createCopy(photo);
+
         // Create Grayscale filter object and apply filter
-        GrayscaleFilter filter = new GrayscaleFilter(originalPhoto);
-        UserPhoto updatedPhoto = filter.applyFilter();
+        GrayscaleFilter filter = new GrayscaleFilter(copyOfPhoto);
+        BufferedImage updatedPhoto = filter.applyFilter();
 
         //If there is an updated photo
         if (updatedPhoto != null) {
             // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
@@ -378,17 +380,18 @@ public class HelloController {
 
     }
 
-    /*
     @FXML
     public void applyRed() {
+        BufferedImage copyOfPhoto = createCopy(photo);
+
         // Create red filter object and apply filter
-        RedFilter filter = new RedFilter(originalPhoto);
-        UserPhoto updatedPhoto = filter.applyFilter();
+        RedFilter filter = new RedFilter(copyOfPhoto);
+        BufferedImage updatedPhoto = filter.applyFilter();
 
         //If there is an updated photo
         if (updatedPhoto != null) {
             // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
@@ -400,14 +403,16 @@ public class HelloController {
 
     @FXML
     public void applyBlue() {
+        BufferedImage copyOfPhoto = createCopy(photo);
+
         // Create red filter object and apply filter
-        BlueFilter filter = new BlueFilter(originalPhoto);
-        UserPhoto updatedPhoto = filter.applyFilter();
+        BlueFilter filter = new BlueFilter(copyOfPhoto);
+        BufferedImage updatedPhoto = filter.applyFilter();
 
         //If there is an updated photo
         if (updatedPhoto != null) {
             // Get the updated image from the UserPhoto object
-            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
@@ -417,8 +422,43 @@ public class HelloController {
         }
     }
 
-     */
+    @FXML
+    public void applyGreen() {
+        BufferedImage copyOfPhoto = createCopy(photo);
 
+        // Create red filter object and apply filter
+        GreenFilter filter = new GreenFilter(copyOfPhoto);
+        BufferedImage updatedPhoto = filter.applyFilter();
+
+        //If there is an updated photo
+        if (updatedPhoto != null) {
+            // Get the updated image from the UserPhoto object
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto, null);
+
+            // Set the updated image to the ImageView
+            imageView.setImage(updatedImage);
+        } else {
+            // Handle the case where the filter was not successful
+            popUpBox("Error - filter could not be applied");
+        }
+    }
+
+    //Create a copy of the photo
+    private BufferedImage createCopy(UserPhoto photo) {
+        //Get info about photo
+        BufferedImage originalImage = photo.getImage();
+        int width = originalImage.getWidth();
+        int height = originalImage.getHeight();
+        int type = originalImage.getType();
+
+        // Create a new BufferedImage as a copy of the original image
+        BufferedImage copyOfPhoto = new BufferedImage(width, height, type);
+        Graphics2D graphics = copyOfPhoto.createGraphics();
+        graphics.drawImage(originalImage, 0, 0, null);
+        graphics.dispose();
+
+        return copyOfPhoto;
+    }
 
     // Deletes the photo object and clears the imageView
     private void deleteImage() {
@@ -455,7 +495,6 @@ public class HelloController {
             try {
                 //Connect Image to UserPhoto class
                 photo = new UserPhoto(file.getAbsolutePath());
-                originalPhoto = new UserPhoto(file.getAbsolutePath());
 
             } catch (Exception e) {
                 popUpBox("Error - could not upload photo");

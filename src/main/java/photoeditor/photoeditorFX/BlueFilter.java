@@ -4,16 +4,15 @@ import java.awt.image.BufferedImage;
 
 public class BlueFilter extends Filter{
 
-    public BlueFilter(UserPhoto photo) {
+    public BlueFilter(BufferedImage photo) {
         super(photo);
     }
 
     @Override
-    public UserPhoto applyFilter() {
+    public BufferedImage applyFilter() {
         //applying filter was successful
-        UserPhoto photo = getPhoto();
-        if (photo != null) {
-            BufferedImage image = photo.getImage();
+        BufferedImage image = getPhoto();
+        if (image != null) {
 
             int width = image.getWidth();
             int height = image.getHeight();
@@ -32,9 +31,7 @@ public class BlueFilter extends Filter{
                 }
             }
 
-            photo.setImage(image);
-
-            return photo;
+            return image;
 
         } else {
             //FILTER WAS NOT SUCCESSFUL
