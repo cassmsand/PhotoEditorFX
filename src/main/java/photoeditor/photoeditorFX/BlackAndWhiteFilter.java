@@ -1,14 +1,38 @@
 package photoeditor.photoeditorFX;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class BlackAndWhiteFilter extends Filter{
 
-    private int intensity;
+    public BlackAndWhiteFilter(UserPhoto photo) {
+        super(photo);
+    }
 
-    public BlackAndWhiteFilter(String name){ super(name); }
+    @Override
+    public UserPhoto applyFilter() {
+        //applying filter was successful
+        UserPhoto photo = getPhoto();
+        if (photo != null) {
+            BufferedImage image = photo.getImage();
 
-    public int getIntensity(){ return this.intensity; }
+            BufferedImage result = new BufferedImage(
+                    image.getWidth(),
+                    image.getHeight(),
+                    BufferedImage.TYPE_BYTE_GRAY); // Set image type to grayscale
 
-    public void setIntensity(int intensity){ this.intensity = intensity; }
+            // Convert the original image to black and white
+            Graphics2D graphic = result.createGraphics();
+            graphic.drawImage(image, 0, 0, Color.WHITE, null);
+            graphic.dispose();
 
-    public boolean applyFilter() { return true; };
+            // Update the UserPhoto object with the updated BufferedImage
+            photo.setImage(result);
+
+            return photo;
+        } else {
+            //FILTER WAS NOT SUCCESSFUL
+            return null;
+        }
+    }
 }

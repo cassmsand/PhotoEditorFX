@@ -1,19 +1,26 @@
 package photoeditor.photoeditorFX;
 
+import java.nio.file.attribute.UserPrincipal;
+
 public abstract class Filter  {
-    private String filterName;
+    private UserPhoto photo;
+    private int intensity;
 
-    public Filter(String name) {
-        this.filterName = name;
+    public Filter(UserPhoto photo) {
+        this.photo = photo;
     }
 
-    public String getName() {
-        return filterName;
+    public UserPhoto getPhoto() {
+        return photo;
     }
 
-    public void setName(String name) {
-        this.filterName = name;
+    public void setIntensity(int intensity) {
+        this.intensity = intensity;
     }
 
-    public abstract boolean applyFilter();
+    public int getIntensity() {
+        return intensity;
+    }
+
+    public abstract UserPhoto applyFilter();
 }

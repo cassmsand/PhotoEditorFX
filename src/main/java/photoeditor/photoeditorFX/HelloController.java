@@ -22,6 +22,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -195,12 +196,6 @@ public class HelloController {
     }
 
     @FXML
-    private void applyBlackAndWhite() {
-        // Implement the action to be performed when the MenuItem is clicked
-        System.out.println("apply black and white");
-    }
-
-    @FXML
     //Open a new photo file
     public void applyOpen() {
         if (photo != null) {
@@ -339,6 +334,25 @@ public class HelloController {
             }
         });
         quitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @FXML
+    private void applyBlackAndWhite() {
+        // Create Black and white filter object and apply filter
+        BlackAndWhiteFilter filter = new BlackAndWhiteFilter(photo);
+        UserPhoto updatedPhoto = filter.applyFilter();
+
+        if (updatedPhoto != null) {
+            // Get the updated image from the UserPhoto object
+            Image updatedImage = SwingFXUtils.toFXImage(updatedPhoto.getImage(), null);
+
+            // Set the updated image to the ImageView
+            imageView.setImage(updatedImage);
+        } else {
+            // Handle the case where the filter was not successful
+            System.out.println("Filter was not successful.");
+        }
+
     }
 
 

@@ -64,6 +64,8 @@ public class UserPhoto implements Photo {
 
     public int getPhotoNum() { return photoNum; }
 
+    public void setImage(BufferedImage newImage) { image = newImage; }
+
     public void setWidth(int newWidth) { width = newWidth; }
 
     public void setHeight(int newHeight) { height = newHeight; }
