@@ -196,6 +196,53 @@ public class HelloController {
     }
 
     @FXML
+    //Open a new photo file
+    public void applyOpen() {
+        if (photo != null) {
+            JFrame openFrame = new JFrame();
+            JButton[] buttons = yesNoBox(openFrame, "Do you want to save your photo?");
+            JButton noButton = buttons[0];
+            JButton yesButton = buttons[1];
+
+            // Add ActionListener to the Yes button
+            yesButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    openFrame.dispose(); //Clear frame
+                    Platform.runLater(() -> {
+                        applySave(); //Saves photo
+                        deleteImage(); //Deletes photo
+                        File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a file
+                        displayFile(selectedFile); //displays the file
+                        dragAndDropLabel.setVisible(false); //hide label
+                    });
+                }
+            });
+
+            // Add ActionListener to the No button
+            noButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    openFrame.dispose(); //Clear frame
+                    deleteImage(); // Deletes photo
+                    Platform.runLater(() -> {
+                        File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
+                        displayFile(selectedFile); //Displays the file
+                        dragAndDropLabel.setVisible(false); //hide label
+                    });
+                }
+            });
+
+            openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        } else {
+            File selectedFile = selectFile(imageView.getScene().getWindow()); //Select a new file
+            displayFile(selectedFile); //Display the file
+        }
+    }
+
+    @FXML
+    //Clear the photo workspace
     public void applyClear() {
         if (photo != null) {
             // Create JFrame quitFrame object and return yes/no buttons to assign actions
@@ -231,77 +278,7 @@ public class HelloController {
     }
 
     @FXML
-    public void applyOpen() {
-        if (photo != null) {
-            JFrame openFrame = new JFrame();
-            JButton[] buttons = yesNoBox(openFrame, "Do you want to save your photo?");
-            JButton noButton = buttons[0];
-            JButton yesButton = buttons[1];
-
-            // Add ActionListener to the Yes button
-            yesButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    openFrame.dispose(); //Clear frame
-                    Platform.runLater(() -> {
-                        applySave(); //Saves photo
-                        deleteImage(); //Deletes photo
-                        File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a file
-                        displayFile(selectedFile); //displays the file
-                    });
-                }
-            });
-
-            // Add ActionListener to the No button
-            noButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    openFrame.dispose(); //Clear frame
-                    deleteImage(); // Deletes photo
-                    Platform.runLater(() -> {
-                        File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
-                        displayFile(selectedFile); //Displays the file
-                    });
-                }
-            });
-
-            openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        } else {
-            File selectedFile = selectFile(imageView.getScene().getWindow()); //Select a new file
-            displayFile(selectedFile); //Display the file
-        }
-    }
-
-    @FXML
-    public void applyQuit() {
-        // Create JFrame quitFrame object and return yes/no buttons to assign actions
-        JFrame quitFrame = new JFrame();
-        JButton[] buttons = yesNoBox(quitFrame, "Are you sure you want to quit?");
-        JButton noButton = buttons[0];
-        JButton yesButton = buttons[1];
-
-        // Add ActionListener to the Yes button
-        yesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                quitFrame.dispose(); //Clear frame
-                System.exit(0); // Exit the entire application
-            }
-        });
-
-        // Add ActionListener to the No button
-        noButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                quitFrame.dispose(); //Clear frame
-            }
-        });
-
-        quitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    @FXML
+    //Saves the photo
     public void applySave() {
         //If there is an image uploaded
         if (photo != null) {
@@ -335,6 +312,37 @@ public class HelloController {
             errorBox("Error - no photo uploaded");
         }
     }
+
+    @FXML
+    //Quits the application
+    public void applyQuit() {
+        // Create JFrame quitFrame object and return yes/no buttons to assign actions
+        JFrame quitFrame = new JFrame();
+        JButton[] buttons = yesNoBox(quitFrame, "Are you sure you want to quit?");
+        JButton noButton = buttons[0];
+        JButton yesButton = buttons[1];
+
+        // Add ActionListener to the Yes button
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                quitFrame.dispose(); //Clear frame
+                System.exit(0); // Exit the entire application
+            }
+        });
+
+        // Add ActionListener to the No button
+        noButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                quitFrame.dispose(); //Clear frame
+            }
+        });
+
+        quitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+
 
     // Deletes the photo object and clears the imageView
     private void deleteImage() {
