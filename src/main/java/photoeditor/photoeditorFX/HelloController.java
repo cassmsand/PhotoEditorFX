@@ -157,26 +157,29 @@ public class HelloController {
         if (db.hasFiles()) {
             success = true;
             String imagePath = db.getFiles().get(0).toURI().toString();
-            Image image = new Image(imagePath);
-            imageView.setImage(image);
-            dragAndDropLabel.setVisible(false);
 
-            //Get the file path from the imagePath
-            try {
+            if (typeChecker(imagePath) == true) {
 
-                URI uri = new URI(imagePath);
-                String directoryPath = uri.getPath();
+                Image image = new Image(imagePath);
+                imageView.setImage(image);
+                dragAndDropLabel.setVisible(false);
 
-                //Connect Image to UserPhoto class
-                photo = new UserPhoto(directoryPath);
+                //Get the file path from the imagePath
+                try {
+                    URI uri = new URI(imagePath);
+                    String directoryPath = uri.getPath();
 
-                //setting aspect ratio of imageview to be the same as photo
-                imageView.setFitHeight(photo.getHeight());
-                imageView.setFitWidth(photo.getWidth());
+                    //Connect Image to UserPhoto class
+                    photo = new UserPhoto(directoryPath);
 
-
-            } catch (Exception e) {
-                System.out.println("Error in image path");
+                    //setting aspect ratio of imageview to be the same as photo
+                    imageView.setFitHeight(photo.getHeight());
+                    imageView.setFitWidth(photo.getWidth());
+                } catch (Exception e) {
+                    System.out.println("Error in image path");
+                }
+            } else {
+                popUpBox("Error - Accepted file types: .png, .jpg, .jpeg, .gif");
             }
 
         }
@@ -187,6 +190,13 @@ public class HelloController {
     @FXML
     private void onDragExited(DragEvent event) {
         event.consume();
+    }
+
+    //Check if uploaded file is an accepted file type
+    private boolean typeChecker(String imagePath) {
+        String lowerCasePath = imagePath.toLowerCase();
+        return lowerCasePath.endsWith(".png") || lowerCasePath.endsWith(".jpg") ||
+                lowerCasePath.endsWith(".jpeg") || lowerCasePath.endsWith(".gif");
     }
 
     @FXML
@@ -415,17 +425,17 @@ public class HelloController {
     //Creates a pop up box with a phrase
     private void popUpBox(String phrase) {
         //Create message box
-        JFrame saveFrame = new JFrame();
-        saveFrame.setSize(new Dimension(300,150));
-        saveFrame.setLocationRelativeTo(null);
-        saveFrame.setVisible(true);
+        JFrame popUpFrame = new JFrame();
+        popUpFrame.setSize(new Dimension(325, 150));
+        popUpFrame.setLocationRelativeTo(null);
+        popUpFrame.setVisible(true);
 
         // Show message
         JLabel label = new JLabel(phrase);
         label.setFont(new Font("Optima", Font.PLAIN, 16));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
-        saveFrame.add(label, BorderLayout.CENTER);
+        popUpFrame.add(label, BorderLayout.CENTER);
     }
 }
 
