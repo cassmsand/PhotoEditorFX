@@ -159,7 +159,7 @@ public class HelloController {
             String imagePath = db.getFiles().get(0).toURI().toString();
             Image image = new Image(imagePath);
             imageView.setImage(image);
-            dragAndDropLabel.setVisible(false); //Hide main label
+            dragAndDropLabel.setVisible(false);
 
             //Get the file path from the imagePath
             try {
@@ -299,7 +299,7 @@ public class HelloController {
                 try {
                     //saving image with applied effects
                     ImageIO.write(SwingFXUtils.fromFXImage(imageView.snapshot(null, wim), null), "png", file);
-                    System.out.println("Image saved successfully.");
+                    popUpBox("Saved successfully!");
                 } catch (Exception e) {
                     System.out.println("Error saving image.");
                 }
@@ -380,10 +380,8 @@ public class HelloController {
                 photo = new UserPhoto(file.getAbsolutePath());
 
             } catch (Exception e) {
-                System.out.println("Error in image path");
+                popUpBox("Error - could not upload photo");
             }
-        } else {
-            System.out.println("No file selected.");
         }
     }
 
