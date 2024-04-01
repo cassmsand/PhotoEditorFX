@@ -114,11 +114,7 @@ public class HelloController {
 
                     imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
                     imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
-
-
                 });
-
-
 
 // Add listener to height slider for resizing
         heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -133,7 +129,6 @@ public class HelloController {
             imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
              // Keep the height fixed
         });
-
     }
 
     // Method to parse the scale value and return a double representing the scaling factor
