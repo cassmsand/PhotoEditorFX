@@ -30,22 +30,17 @@ public class UserPhoto implements Photo {
 
             // Set fileName
             fileName = photoFile.getName();
-            System.out.println("File name: " + fileName);
 
             // Set fileSize
             fileSize = photoFile.length();
-            System.out.println("File size: " + fileSize + " bytes");
 
             // Get the height and width of the buffered image
             this.width = image.getWidth();
             this.height = image.getHeight();
-            System.out.println("Width: " + getWidth() + " pixels");
-            System.out.println("Height: " + getHeight() + " pixels");
 
             // Set photo number
             counter++;
             photoNum = counter;
-            System.out.println("Photo number: " + photoNum);
 
             isPhotoEdited = false;
 

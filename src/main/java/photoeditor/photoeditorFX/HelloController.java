@@ -306,7 +306,7 @@ public class HelloController {
             }
         } else {
             //ERROR NO PHOTO TO SAVE
-            errorBox("Error - no photo uploaded");
+            popUpBox("Error - no photo uploaded");
         }
     }
 
@@ -414,14 +414,15 @@ public class HelloController {
         return new JButton[]{noButton, yesButton};
     }
 
-    //Creates an error box pop with a phrase
-    private void errorBox(String phrase) {
+    //Creates a pop up box with a phrase
+    private void popUpBox(String phrase) {
+        //Create message box
         JFrame saveFrame = new JFrame();
         saveFrame.setSize(new Dimension(300,150));
         saveFrame.setLocationRelativeTo(null);
         saveFrame.setVisible(true);
 
-        // Show "Error - no photo uploaded"
+        // Show message
         JLabel label = new JLabel(phrase);
         label.setFont(new Font("Optima", Font.PLAIN, 16));
         label.setHorizontalAlignment(SwingConstants.CENTER);
