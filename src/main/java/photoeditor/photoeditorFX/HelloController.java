@@ -243,6 +243,8 @@ public class HelloController {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     openFrame.dispose(); //Clear frame
+                    resetSliders(); //reset sliders
+                    resetSize(); //reset size
                     deleteImage(); // Deletes photo
                     Platform.runLater(() -> {
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
@@ -648,6 +650,7 @@ public class HelloController {
         contrastSlider.setValue(0);
         hueSlider.setValue(0);
         saturationSlider.setValue(0);
+
     }
 
     private void resetSize() {
