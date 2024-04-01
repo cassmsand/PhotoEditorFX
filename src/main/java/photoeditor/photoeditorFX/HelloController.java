@@ -227,9 +227,9 @@ public class HelloController {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     openFrame.dispose(); //Clear frame
+                    resetSliders(); //reset sliders
+                    resetSize(); //reset size
                     Platform.runLater(() -> {
-                        resetSliders(); //reset sliders
-                        resetSize(); //reset size
                         applySave(); //Saves photo
                         deleteImage(); //Deletes photo
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a file
@@ -244,6 +244,8 @@ public class HelloController {
                 public void actionPerformed(ActionEvent e) {
                     openFrame.dispose(); //Clear frame
                     deleteImage(); // Deletes photo
+                    resetSliders(); //reset sliders
+                    resetSize(); //reset size
                     Platform.runLater(() -> {
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects the file
                         displayFile(selectedFile); //Displays the file
@@ -253,6 +255,8 @@ public class HelloController {
             openFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         } else {
+            resetSliders(); //reset sliders
+            resetSize(); //reset size
             File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a new file
             displayFile(selectedFile); //Display the file
         }
