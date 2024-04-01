@@ -243,8 +243,6 @@ public class HelloController {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     openFrame.dispose(); //Clear frame
-                    resetSliders(); //reset sliders
-                    resetSize(); //reset size
                     deleteImage(); // Deletes photo
                     resetSliders(); //reset sliders
                     resetSize(); //reset size
