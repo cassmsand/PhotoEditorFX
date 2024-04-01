@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class HelloController {
@@ -78,49 +79,52 @@ public class HelloController {
         brightnessSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setBrightness(brightnessSlider.getValue());
             imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited();
+            photo.isPhotoEdited(true);
         });
 
         contrastSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setContrast(contrastSlider.getValue());
             imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited();
+            photo.isPhotoEdited(true);
         });
 
         hueSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setHue(hueSlider.getValue());
             imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited();
+            photo.isPhotoEdited(true);
         });
 
         saturationSlider.valueProperty().addListener((observableValue, number, t1) -> {
             colorAdjust.setSaturation(saturationSlider.getValue());
             imageView.setEffect(colorAdjust);
-            photo.isPhotoEdited();
+            photo.isPhotoEdited(true);
         });
 
         //need to keep track of scale value for height/width slider as well as the sliders.
         AtomicReference<Double> scale = new AtomicReference<>((double) 1);
         // Add listener to comboBox1 for resizing up and down from 0.0625 to 5x
         comboBox1.setOnAction(event -> {
-                    scale.set(parseScale(comboBox1.getValue()));
+            scale.set(parseScale(comboBox1.getValue()));
 
-                    imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
-                    imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
-                });
+            imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
+            imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
+            photo.isPhotoEdited(true);
+        });
 
-// Add listener to height slider for resizing
+        // Add listener to height slider for resizing
         heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             imageView.setPreserveRatio(false);
             imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
              // Keep the width fixed
+            photo.isPhotoEdited(true);
         });
 
-// Add listener to width slider for resizing
+        // Add listener to width slider for resizing
         widthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             imageView.setPreserveRatio(false);
             imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
              // Keep the height fixed
+            photo.isPhotoEdited(true);
         });
     }
 
@@ -268,9 +272,33 @@ public class HelloController {
                     deleteImage(); //Delete photo object and update the imageView
                 }
             });
+            // Reset all sliders to their default positions
+            brightnessSlider.setValue(0);
+            contrastSlider.setValue(0);
+            hueSlider.setValue(0);
+            saturationSlider.setValue(0);
+
+            // Reset the ComboBox to its default value
+            comboBox1.setValue("1x");
+
+            // Reset the fit height and width of the image view to the original dimensions of application
+            imageView.setFitHeight(600);
+            imageView.setFitWidth(800);
+
             clearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
     }
+
+    @FXML
+    //Reset photo to original Image
+    public void applyReset() {
+        if (photo != null) {
+            // apply reset
+        } else {
+            popUpBox("Error - no photo uploaded");
+        }
+    }
+
 
     @FXML
     //Saves the photo
@@ -373,6 +401,7 @@ public class HelloController {
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
+            photo.isPhotoEdited(true);
         } else {
             // Handle the case where the filter was not successful
             popUpBox("Error - filter could not be applied");
@@ -395,6 +424,7 @@ public class HelloController {
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
+            photo.isPhotoEdited(true);
         } else {
             // Handle the case where the filter was not successful
             popUpBox("Error - filter could not be applied");
@@ -416,6 +446,7 @@ public class HelloController {
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
+            photo.isPhotoEdited(true);
         } else {
             // Handle the case where the filter was not successful
             popUpBox("Error - filter could not be applied");
@@ -437,6 +468,7 @@ public class HelloController {
 
             // Set the updated image to the ImageView
             imageView.setImage(updatedImage);
+            photo.isPhotoEdited(true);
         } else {
             // Handle the case where the filter was not successful
             popUpBox("Error - filter could not be applied");

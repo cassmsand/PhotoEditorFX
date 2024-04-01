@@ -13,6 +13,7 @@ public class UserPhoto implements Photo {
     private File photoFile;
     private BufferedImage image;
     private String fileName;
+    private String filePath;
     private long fileSize;
     private int width, height;
     private int photoNum;
@@ -24,6 +25,9 @@ public class UserPhoto implements Photo {
         try {
             // Using the photoPath, create a File object
             photoFile = new File(photoPath);
+
+            //Assign filePath
+            filePath = photoPath;
 
             // Convert the photoFile to a BufferedImage object
             image = ImageIO.read(photoFile);
@@ -56,6 +60,8 @@ public class UserPhoto implements Photo {
 
     public String getFileName() { return fileName; }
 
+    public String getFilePath() { return filePath; }
+
     public long getFileSize() { return fileSize; }
 
     public int getWidth() { return width; }
@@ -70,7 +76,8 @@ public class UserPhoto implements Photo {
 
     public void setHeight(int newHeight) { height = newHeight; }
 
-    public boolean isPhotoEdited() { this.isPhotoEdited = true; return isPhotoEdited;}
+    public void isPhotoEdited(Boolean bool) { this.isPhotoEdited = bool;}
 
+    public boolean isPhotoEdited() { return isPhotoEdited; }
 }
 

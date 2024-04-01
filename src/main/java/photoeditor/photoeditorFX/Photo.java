@@ -15,6 +15,6 @@ public interface Photo {
         public int getPhotoNum();
         public void setWidth(int newWidth);
         public void setHeight(int newHeight);
-        public boolean isPhotoEdited();
+        public void isPhotoEdited(Boolean bool);
 
 }
