@@ -110,11 +110,13 @@ public class HelloController {
         AtomicReference<Double> scale = new AtomicReference<>((double) 1);
         // Add listener to comboBox1 for resizing up and down from 0.0625 to 5x
         comboBox1.setOnAction(event -> {
-            scale.set(parseScale(comboBox1.getValue()));
+            if (photo != null) {
+                scale.set(parseScale(comboBox1.getValue()));
 
-            imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
-            imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
-            photo.isPhotoEdited(true);
+                imageView.setFitHeight(heightSlider.getValue() + (scale.get() * photo.getHeight()));
+                imageView.setFitWidth(widthSlider.getValue() + (scale.get() * photo.getWidth()));
+                photo.isPhotoEdited(true);
+            }
         });
 
         // Add listener to height slider for resizing
@@ -226,6 +228,8 @@ public class HelloController {
                 public void actionPerformed(ActionEvent e) {
                     openFrame.dispose(); //Clear frame
                     Platform.runLater(() -> {
+                        resetSliders(); //reset sliders
+                        resetSize(); //reset size
                         applySave(); //Saves photo
                         deleteImage(); //Deletes photo
                         File selectedFile = selectFile(imageView.getScene().getWindow()); //Selects a file
@@ -649,6 +653,8 @@ public class HelloController {
     private void resetSize() {
         // Reset the ComboBox to its default value
         comboBox1.setValue("1x");
+        heightSlider.setValue(0);
+        widthSlider.setValue(0);
     }
 
 }
