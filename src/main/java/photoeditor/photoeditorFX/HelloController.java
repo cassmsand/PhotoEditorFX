@@ -293,7 +293,23 @@ public class HelloController {
     //Reset photo to original Image
     public void applyReset() {
         if (photo != null) {
+            //Reset settings
+            // Reset all sliders to their default positions
+            brightnessSlider.setValue(0);
+            contrastSlider.setValue(0);
+            hueSlider.setValue(0);
+            saturationSlider.setValue(0);
+
+            // Reset the ComboBox to its default value
+            comboBox1.setValue("1x");
+
+            // Reset the fit height and width of the image view to the original dimensions of application
+            imageView.setFitHeight(photo.getHeight());
+            imageView.setFitWidth(photo.getWidth());
+
             // apply reset
+            Image originalImage = SwingFXUtils.toFXImage(photo.getImage(), null);
+            imageView.setImage(originalImage);
         } else {
             popUpBox("Error - no photo uploaded");
         }
