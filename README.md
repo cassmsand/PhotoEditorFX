@@ -24,16 +24,16 @@ To run the application, go to src > main > java > photoeditor.photoeditorFX > He
 The project will compile and then start the application.
 
 Each functional requirement.
-1.Upload photos to Editor. Our application has two ways for uploading photos to the editor: drag-and-dropping the photo directly into the editor and a File Explorer.
+1. Upload photos to Editor. Our application has two ways for uploading photos to the editor: drag-and-dropping the photo directly into the editor and a File Explorer.
 
-2.Resize photos(pixel size). Our application offers the ability to change the size of the photo(0.0625x, .125x, .25x, .5x, 1x, 2x, 3x, 4x, 5x) or specifically the height or width of the photo using a numerical slider.
+2. Resize photos(pixel size). Our application offers the ability to change the size of the photo(0.0625x, .125x, .25x, .5x, 1x, 2x, 3x, 4x, 5x) or specifically the height or width of the photo using a numerical slider.
 
-3.Recolor Photos. Our application offers a variety of ways to recolor photos. Having the ability to adjust the photo's brightness, hue, contrast, and saturation, as well as apply various filters (Black&White, Grayscale, Red, Blue, Green).
+3. Recolor Photos. Our application offers a variety of ways to recolor photos. Having the ability to adjust the photo's brightness, hue, contrast, and saturation, as well as apply various filters (Black&White, Grayscale, Red, Blue, Green).
 
-4.Save Past Edited photos.
-5.Delete Past Edited Photos.
+4. Save Past Edited photos.
+5. Delete Past Edited Photos.
 
-6.Save photo to device. Our application has a simple to use save button found under the file tab. It also has a clear workspace option, which clears the current photo in the editor, that will prompt if you would like to save first. There is also a confirmation that the photo has been saved.
+6. Save photo to device. Our application has a simple to use save button found under the file tab. It also has a clear workspace option, which clears the current photo in the editor, that will prompt if you would like to save first. There is also a confirmation that the photo has been saved.
 
 Each non-functional requirement. 
 
