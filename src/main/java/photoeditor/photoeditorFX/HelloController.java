@@ -51,9 +51,7 @@ public class HelloController {
     private WritableImage wim;
     private static Stage mainStage;     //added for the quit class
 
-
     public void initialize() {
-
         ObservableList<String> options1 = FXCollections.observableArrayList(
                 "0.0625x",
                 "0.125x",
@@ -173,7 +171,7 @@ public class HelloController {
             success = true;
             String imagePath = db.getFiles().get(0).toURI().toString();
 
-            if (typeChecker(imagePath) == true) {
+            if (typeChecker(imagePath)) {
                 Image image = new Image(imagePath);
                 imageView.setImage(image);
                 dragAndDropLabel.setVisible(false);
@@ -426,6 +424,7 @@ public class HelloController {
 
 
     @FXML
+    // Apply Black and White Filter to photo
     public void applyBlackAndWhite() {
         if (photo != null) {
             //Get copy of photo
@@ -449,6 +448,7 @@ public class HelloController {
     }
 
     @FXML
+    // Apply Grayscale Filter to photo
     private void applyGrayscale() {
         if (photo != null) {
             BufferedImage copyOfPhoto = createCopy(photo);
@@ -473,6 +473,7 @@ public class HelloController {
     }
 
     @FXML
+    // Apply Red Filter to photo
     public void applyRed() {
         if (photo != null) {
             BufferedImage copyOfPhoto = createCopy(photo);
@@ -497,6 +498,7 @@ public class HelloController {
     }
 
     @FXML
+    // Apply Blue Filter to photo
     public void applyBlue() {
         if (photo != null) {
             BufferedImage copyOfPhoto = createCopy(photo);
@@ -521,6 +523,7 @@ public class HelloController {
     }
 
     @FXML
+    // Apply Green Filter to photo
     public void applyGreen() {
         if (photo != null) {
             BufferedImage copyOfPhoto = createCopy(photo);
@@ -646,17 +649,16 @@ public class HelloController {
         popUpFrame.add(label, BorderLayout.CENTER);
     }
 
+    // Reset all color sliders to their default positions
     private void resetSliders() {
-        // Reset all sliders to their default positions
         brightnessSlider.setValue(0);
         contrastSlider.setValue(0);
         hueSlider.setValue(0);
         saturationSlider.setValue(0);
-
     }
 
+    // Reset the ComboBox and size sliders to their default value
     private void resetSize() {
-        // Reset the ComboBox to its default value
         comboBox1.setValue("1x");
         heightSlider.setValue(0);
         widthSlider.setValue(0);
