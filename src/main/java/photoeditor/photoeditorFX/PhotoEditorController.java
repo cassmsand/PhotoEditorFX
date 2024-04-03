@@ -28,7 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class HelloController {
+public class PhotoEditorController {
     public Label dragAndDropLabel;
     @FXML
     private ComboBox<String> comboBox1;

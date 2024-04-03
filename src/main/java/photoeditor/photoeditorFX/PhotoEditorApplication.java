@@ -8,11 +8,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class PhotoEditorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("PhotoEditorGUI.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(PhotoEditorApplication.class.getResource("PhotoEditorGUI.fxml"));
             Parent root = fxmlLoader.load();
 
             Scene scene = new Scene(root, 800, 600);
