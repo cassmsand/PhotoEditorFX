@@ -1,5 +1,6 @@
 package photoeditor.photoeditorFX;
 
+//This class can be used for further developments in the application
 public class Album {
 
     private String albumName;
