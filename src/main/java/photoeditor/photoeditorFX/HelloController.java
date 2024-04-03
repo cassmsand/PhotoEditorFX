@@ -278,6 +278,9 @@ public class HelloController {
                     Platform.runLater(() -> {
                         applySave(); //Save photo
                         deleteImage(); //Delete photo object and update the imageView
+                        // Reset all sliders and ComboBox to their default positions
+                        resetSliders();
+                        resetSize();
                     });
                 }
             });
@@ -288,13 +291,11 @@ public class HelloController {
                 public void actionPerformed(ActionEvent e) {
                     clearFrame.dispose(); //Clear frame
                     deleteImage(); //Delete photo object and update the imageView
+                    // Reset all sliders and ComboBox to their default positions
+                    resetSliders();
+                    resetSize();
                 }
             });
-            // Reset all sliders to their default positions
-            resetSliders();
-
-            // Reset the ComboBox to its default value
-            resetSize();
 
             // Reset the fit height and width of the image view to the original dimensions of application
             imageView.setFitHeight(600);
