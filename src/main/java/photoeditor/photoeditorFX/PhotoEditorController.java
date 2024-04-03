@@ -163,40 +163,42 @@ public class PhotoEditorController {
 
     @FXML
     private void onDragDropped(DragEvent event) throws URISyntaxException {
-        Dragboard db = event.getDragboard();
-        boolean success = false;
-        if (db.hasFiles()) {
+        if (photo == null) {
             resetSliders(); //reset sliders
             resetSize(); //reset size
-            success = true;
-            String imagePath = db.getFiles().get(0).toURI().toString();
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasFiles()) {
+                success = true;
+                String imagePath = db.getFiles().get(0).toURI().toString();
 
-            if (typeChecker(imagePath)) {
-                Image image = new Image(imagePath);
-                imageView.setImage(image);
-                dragAndDropLabel.setVisible(false);
+                if (typeChecker(imagePath)) {
+                    Image image = new Image(imagePath);
+                    imageView.setImage(image);
+                    dragAndDropLabel.setVisible(false);
 
-                //Get the file path from the imagePath
-                try {
-                    URI uri = new URI(imagePath);
-                    String directoryPath = uri.getPath();
+                    //Get the file path from the imagePath
+                    try {
+                        URI uri = new URI(imagePath);
+                        String directoryPath = uri.getPath();
 
-                    //Connect Image to UserPhoto class
-                    photo = new UserPhoto(directoryPath);
+                        //Connect Image to UserPhoto class
+                        photo = new UserPhoto(directoryPath);
 
-                    //setting aspect ratio of imageview to be the same as photo
-                    imageView.setFitHeight(photo.getHeight());
-                    imageView.setFitWidth(photo.getWidth());
-                } catch (Exception e) {
-                    System.out.println("Error in image path");
+                        //setting aspect ratio of imageview to be the same as photo
+                        imageView.setFitHeight(photo.getHeight());
+                        imageView.setFitWidth(photo.getWidth());
+                    } catch (Exception e) {
+                        System.out.println("Error in image path");
+                    }
+                } else {
+                    popUpBox("Error - Accepted file types: .png, .jpg, .jpeg, .gif");
                 }
-            } else {
-                popUpBox("Error - Accepted file types: .png, .jpg, .jpeg, .gif");
             }
-
+            event.setDropCompleted(success);
+            event.consume();
         }
-        event.setDropCompleted(success);
-        event.consume();
+
     }
 
     @FXML
@@ -569,6 +571,8 @@ public class PhotoEditorController {
     private void deleteImage() {
         // Set the ImageView's image property to null
         imageView.setImage(null);
+        resetSliders();
+        resetSize();
         // Dispose the photo object if it's not null
         if (photo != null) {
             photo = null;
@@ -595,6 +599,8 @@ public class PhotoEditorController {
             // You can perform further operations with the selected file here
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
+            imageView.setFitHeight(image.getHeight());
+            imageView.setFitWidth(image.getWidth());
             dragAndDropLabel.setVisible(false);
             //Get the file path from the imagePath
             try {
