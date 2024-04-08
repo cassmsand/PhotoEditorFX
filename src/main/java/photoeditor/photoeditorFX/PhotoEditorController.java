@@ -452,7 +452,7 @@ public class PhotoEditorController {
 
     @FXML
     // Apply Grayscale Filter to photo
-    private void applyGrayscale() {
+    public void applyGrayscale() {
         if (photo != null) {
             BufferedImage copyOfPhoto = createCopy(photo);
 
