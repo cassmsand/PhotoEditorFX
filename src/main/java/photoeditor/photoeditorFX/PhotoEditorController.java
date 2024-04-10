@@ -284,6 +284,7 @@ public class PhotoEditorController {
                         // Reset all sliders and ComboBox to their default positions
                         resetSliders();
                         resetSize();
+                        dragAndDropLabel.setVisible(true);
                     });
                 }
             });
