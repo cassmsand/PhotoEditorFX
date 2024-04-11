@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PhotoEditorController {
     @FXML
-    public Label dragAndDropLabel;
+    private Label dragAndDropLabel;
     @FXML
     private ComboBox<String> comboBox1;
     @FXML
